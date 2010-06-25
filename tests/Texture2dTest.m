@@ -38,6 +38,7 @@ static NSString *transitions[] = {
 			@"TextureGlClamp",
 			@"TextureGlRepeat",
 			@"TextureSizeTest",
+			@"TextureCache1",
 };
 
 #pragma mark Callbacks
@@ -79,7 +80,7 @@ Class restartAction()
 
 		CGSize s = [[CCDirector sharedDirector] winSize];	
 		CCLabel* label = [CCLabel labelWithString:[self title] fontName:@"Arial" fontSize:32];
-		[self addChild:label z:0 tag:kTagLabel];
+		[self addChild:label z:1 tag:kTagLabel];
 		[label setPosition: ccp(s.width/2, s.height-50)];
 		
 		NSString *subtitle = [self subtitle];
@@ -95,11 +96,11 @@ Class restartAction()
 		
 		CCMenu *menu = [CCMenu menuWithItems:item1, item2, item3, nil];
 		menu.position = CGPointZero;
-		item1.position = ccp(480/2-100,30);
-		item2.position = ccp(480/2, 30);
-		item3.position = ccp(480/2+100,30);
-		[self addChild: menu z:1];
-
+		item1.position = ccp( s.width/2 - 100,30);
+		item2.position = ccp( s.width/2, 30);
+		item3.position = ccp( s.width/2 + 100,30);
+		[self addChild: menu z:1];	
+		
 	}
 	return self;
 }
@@ -489,9 +490,8 @@ Class restartAction()
 	[label setColor:ccc3(16,16,255)];
 	
 	CGSize s = [[CCDirector sharedDirector] winSize];
-	
-	CCSprite *background = [CCSprite spriteWithFile:@"background1.jpg"];
-	background.position = ccp(240,160);
+		
+	CCColorLayer *background = [CCColorLayer layerWithColor:ccc4(128,128,128,255) width:s.width height:s.height];
 	[self addChild:background z:-1];
 	
 	// RGBA 8888 image (32-bit)
@@ -904,8 +904,7 @@ Class restartAction()
 				
 		CGSize size =[[CCDirector sharedDirector] winSize];
 	
-		CCSprite *background = [CCSprite spriteWithFile:@"background3.jpg"];
-		background.anchorPoint = CGPointZero;
+		CCColorLayer *background = [CCColorLayer layerWithColor:ccc4(128,128,128,255) width:size.width height:size.height];
 		[self addChild:background z:-1];
 		
 		
@@ -1086,7 +1085,62 @@ Class restartAction()
 {
 	return @"512x512, 1024x1024, 2048x2048 and 4096x4096. See the console.";
 }
+@end
 
+#pragma mark -
+#pragma mark TextureCache1
+
+@implementation TextureCache1
+-(id) init
+{	
+	if ((self=[super init]) ) {
+		
+		CGSize s = [[CCDirector sharedDirector] winSize];
+		
+		CCSprite *sprite;
+		
+		sprite = [CCSprite spriteWithFile:@"grossinis_sister1.png"];
+		[sprite setPosition:ccp(s.width/5*1, s.height/2)];
+		[[sprite texture] setAliasTexParameters];
+		[sprite setScale:2];
+		[self addChild:sprite];
+
+		[[CCTextureCache sharedTextureCache] removeTexture:[sprite texture]];
+		
+		sprite = [CCSprite spriteWithFile:@"grossinis_sister1.png"];
+		[sprite setPosition:ccp(s.width/5*2, s.height/2)];
+		[[sprite texture] setAntiAliasTexParameters];
+		[sprite setScale:2];
+		[self addChild:sprite];
+
+		// 2nd set of sprites
+		
+		sprite = [CCSprite spriteWithFile:@"grossinis_sister2.png"];
+		[sprite setPosition:ccp(s.width/5*3, s.height/2)];
+		[[sprite texture] setAliasTexParameters];
+		[sprite setScale:2];
+		[self addChild:sprite];
+		
+		[[CCTextureCache sharedTextureCache] removeTextureForKey:@"grossinis_sister2.png"];
+		
+		sprite = [CCSprite spriteWithFile:@"grossinis_sister2.png"];
+		[sprite setPosition:ccp(s.width/5*4, s.height/2)];
+		[[sprite texture] setAntiAliasTexParameters];
+		[sprite setScale:2];
+		[self addChild:sprite];
+		
+	}
+	return self;
+}
+
+-(NSString*) title
+{
+	return @"CCTextureCache: remove";
+}
+-(NSString *) subtitle
+{
+	return @"4 images should appear: alias, antialias, alias, antilias";
+}
 @end
 
 
@@ -1099,27 +1153,29 @@ Class restartAction()
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
-	// Init the window
-	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	
-	// cocos2d will inherit these values
-	[window setUserInteractionEnabled:YES];	
-	[window setMultipleTouchEnabled:NO];
-	
-	// must be called before any othe call to the director
-	[CCDirector setDirectorType:kCCDirectorTypeDisplayLink];
-
+	// CC_DIRECTOR_INIT()
 	//
-	[[CCDirector sharedDirector] setPixelFormat:kCCPixelFormatRGB565];
-
-	// before creating any layer, set the landscape mode
-	[[CCDirector sharedDirector] setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
-	[[CCDirector sharedDirector] setAnimationInterval:1.0/60];
-	[[CCDirector sharedDirector] setDisplayFPS:YES];
-
-	// create an openGL view inside a window
-	[[CCDirector sharedDirector] attachInView:window];	
-	[window makeKeyAndVisible];
+	// 1. Initializes an EAGLView with 0-bit depth format, and RGB565 render buffer
+	// 2. EAGLView multiple touches: disabled
+	// 3. creates a UIWindow, and assign it to the "window" var (it must already be declared)
+	// 4. Parents EAGLView to the newly created window
+	// 5. Creates Display Link Director
+	// 5a. If it fails, it will use an NSTimer director
+	// 6. It will try to run at 60 FPS
+	// 7. Display FPS: NO
+	// 8. Device orientation: Portrait
+	// 9. Connects the director to the EAGLView
+	//
+	CC_DIRECTOR_INIT();
+	
+	// Obtain the shared director in order to...
+	CCDirector *director = [CCDirector sharedDirector];
+	
+	// Sets landscape mode
+	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
+	
+	// Turn on display FPS
+	[director setDisplayFPS:YES];
 	
 	// Default texture format for PNG/BMP/TIFF/JPEG/GIF images
 	// It can be RGBA8888, RGBA4444, RGB5_A1, RGB565
@@ -1129,9 +1185,7 @@ Class restartAction()
 	CCScene *scene = [CCScene node];
 	[scene addChild: [nextAction() node]];
 	
-//	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	[[CCDirector sharedDirector] runWithScene: scene];
+	[director runWithScene: scene];
 }
 
 // geting a call, pause the game

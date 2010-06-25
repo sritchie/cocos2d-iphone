@@ -123,7 +123,10 @@
 @end
 
 @interface SpriteFrameTest : SpriteDemo
-{}
+{
+	CCSprite *sprite1, *sprite2;
+	int counter;
+}
 @end
 
 @interface SpriteOffsetAnchorRotation : SpriteDemo
@@ -185,6 +188,10 @@
 @end
 
 @interface SpriteNilTexture : SpriteDemo
+{}
+@end
+
+@interface SpriteSubclass : SpriteDemo
 {}
 @end
 

@@ -70,12 +70,14 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		patch for TMX per-tile properties
 	* Daniele Benegiamo:
 		Prevent possible memory corruption with particles when autoRemove is On. patch.
-	* David Whatley ( http://criticalthoughtgames.com/ )
+	* David Whatley (http://criticalthoughtgames.com/)
 		Scheduler supports the repeat parameter. patch.
 		Author of perFrameUpdate in Scheduler
 		Scheduler supports scaleTime per node
 		ActionManager supports scaleTime per node
 		Author of tests for: Scheduler:repeat, Scheduler:perFrameUpdate, Scheduler:scaleTime
+	* Derek van Vliet (http://http://getsetgames.com/)
+		Added fix to make JPEG images work correctly in iOS4
 	* Dominique Bongard:
 		patches for CocosDenshion
 		Scheduler fires Timer the 1st time with dt=0
@@ -149,13 +151,15 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		PointParticle asserts if size > 64
 		Fixed memory leaks when initialization of some nodes failed
 		Added removeFromParent method in CCNode
+		Improved performance in CCArray
 	* jkrippy:
 		patch for menu align. takes scale into account
 	* johnnyflash71:
 		TMX suports 1 tileset per layer patch
 	* jszatmary:
 		QuadParticleSystem works with NPOT textures. patch.
-		Menu items are not consumed is items are not enabled
+		QuadParticleSystem works with subrects. patch.
+		Menu items are not consumed if items are not enabled
 	* jtbowden
 		RotateTo uses min distance patch
 	* kasatani:
@@ -172,6 +176,7 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		Added several functions to CGPointExtension like: clampf, ccpClamp, ccpFromSize,
 			ccpCompOp, ccpLerp, ccpFuzzyEqual, ccpCompMult, ccpAngleSigned, ccpAngle,
 			ccpRotateByAngle, ccpLineIntersect
+		Author of sample "CocosDenshion - Fancy Rat Metering Demo"
 	* Leonardo Kasperavičius (http://www.instantgames.com.br/):
 		original author of QuadParticleSystem class
 		Author of the original Bezier action
@@ -214,6 +219,10 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		TextureAtlas uses VBO instead of vertex array list patch
 		Director: FPSLabel uses RGBA4444 texture (patch)
 		Node: Added cached GL matrix (patch)
+		CCArray: author of high performance array
+		Added CCArray in CCNode and CCSpriteSheet to improve performance
+		ccCArray: added missing functions so that it easier to wrap a fast enum object around it.
+		Improved performance in serveral places by using CCARRAY_FOREACH
 	* marcu.catalin:
 		Menu items are not consumed is items are not visible
 	* Mark Cooke:
@@ -266,6 +275,8 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		patch for TileMapAtlas: it works with 255 tiles
 		patch for TextureMgr: supports directory within image names
 		patch: Added support for tsx tilesets in TMX tiled maps
+	* Ray Wenderlich (http://www.raywenderlich.com/)
+		co-author of sample "CocosDenshion - Tom the Turret"
 	* Robert J Payne (http://www.zwopple.com/)
 		Author of Zwoptex editor, support
 		Added support for left,right,top,bottom trim in CCSpriteFrameCache (patch).
@@ -306,10 +317,13 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 	* Stanislav Skuratov (trump-card):
 		Author of ParticleView, the particle editor
 	* Steve Oldmeadow (http://www.smoco.com/):
-		patches for Texture2D
 		Author and maintainer of CocosDenshion Sound Engine
+		patches for Texture2D
 		Integrated Box2d physics engine
 		Created Box2d + cocos2d demo example
+		co-author of sample "CocosDenshion - Tom the Turret"
+		Author of sample "CocosDenshion - Drum Pad"
+		Author of sample "CocosDenshion - Fade to Grey"
 	* Stuart Carnie (http://www.manomio.com/):
 		Sprite with nil textures supports opacity & color. patch.
 		Added file templates: CCNode, CCLayer, CCSprite
@@ -319,6 +333,8 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 			MenuItems: supports the "block" parameter
 			Tests: added Actions and Menu tests
 		Added ProfilingTimer: Director and Particles supports it when enabled
+	* svenito:
+		Fixed artifacts in PageTurnTransition
 	* TheArsenik:
 		added BezierTo action
 	* thoechsm:

@@ -2,7 +2,7 @@
 
 echo 'cocos2d-iphone template installer'
 
-COCOS2D_VER='cocos2d 0.99.3'
+COCOS2D_VER='cocos2d 0.99.4'
 BASE_TEMPLATE_DIR="/Library/Application Support/Developer/Shared/Xcode"
 BASE_TEMPLATE_USER_DIR="$HOME/Library/Application Support/Developer/Shared/Xcode"
 
@@ -77,7 +77,7 @@ copy_base_files(){
 	copy_files external/FontLabel "$LIBS_DIR"
 
 	echo ...copying CocosDenshion files
-	copy_files CocosDenshion "$LIBS_DIR"
+	copy_files CocosDenshion/CocosDenshion "$LIBS_DIR"
 
 	echo ...copying cocoslive files
 	copy_files cocoslive "$LIBS_DIR"
