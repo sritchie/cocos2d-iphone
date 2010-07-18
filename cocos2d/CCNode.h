@@ -94,7 +94,7 @@ enum {
  Camera:
  - Each node has a camera. By default it points to the center of the CCNode.
  */ 
-@interface CCNode : NSObject {
+@interface CCNode : NSObject	{
 	
 	// rotation angle
 	float rotation_;	

@@ -643,7 +643,6 @@
 		5054620310616B0700AB7C52 /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 505461FB10616B0700AB7C52 /* FontManager.m */; };
 		5054620410616B0700AB7C52 /* ZFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 505461FC10616B0700AB7C52 /* ZFont.h */; };
 		5054620510616B0700AB7C52 /* ZFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 505461FD10616B0700AB7C52 /* ZFont.m */; };
-		5054620810616B3400AB7C52 /* libFontLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 505461DF10616AE100AB7C52 /* libFontLabel.a */; };
 		505462FC1062768000AB7C52 /* ccConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 505462FB1062768000AB7C52 /* ccConfig.h */; };
 		505463A21062867800AB7C52 /* bitmapFontTest.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 505463971062867800AB7C52 /* bitmapFontTest.fnt */; };
 		505463A31062867800AB7C52 /* bitmapFontTest.png in Resources */ = {isa = PBXBuildFile; fileRef = 505463981062867800AB7C52 /* bitmapFontTest.png */; };
@@ -1942,13 +1941,6 @@
 			remoteGlobalIDString = 50CB2FC91004C8B100B7A750;
 			remoteInfo = CocosDenshion;
 		};
-		5054620610616B2A00AB7C52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 505461DE10616AE100AB7C52;
-			remoteInfo = FontLabel;
-		};
 		505B62AD0F2E6A0F001B4104 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -2543,6 +2535,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5018F24C0DFDEAC400C013A5;
 			remoteInfo = cocos2d;
+		};
+		956A2B1F11DE50E800872B77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 505461DE10616AE100AB7C52;
+			remoteInfo = FontLabel;
 		};
 		DA5F0EC30FFE96D400C7C82E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3580,7 +3579,6 @@
 				5018F2E50DFDEBBA00C013A5 /* OpenGLES.framework in Frameworks */,
 				5018F2E60DFDEBBA00C013A5 /* QuartzCore.framework in Frameworks */,
 				503092B310447296005F7AFC /* libz.dylib in Frameworks */,
-				5054620810616B3400AB7C52 /* libFontLabel.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6358,7 +6356,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5054620710616B2A00AB7C52 /* PBXTargetDependency */,
+				956A2B2011DE50E800872B77 /* PBXTargetDependency */,
 			);
 			name = cocos2d;
 			productName = cocos2d;
@@ -9569,11 +9567,6 @@
 			target = 50CB2FC91004C8B100B7A750 /* CocosDenshion */;
 			targetProxy = 5052294411B3DCE90061670F /* PBXContainerItemProxy */;
 		};
-		5054620710616B2A00AB7C52 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 505461DE10616AE100AB7C52 /* FontLabel */;
-			targetProxy = 5054620610616B2A00AB7C52 /* PBXContainerItemProxy */;
-		};
 		505B62AC0F2E6A0F001B4104 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5018F24C0DFDEAC400C013A5 /* cocos2d */;
@@ -9998,6 +9991,11 @@
 			isa = PBXTargetDependency;
 			target = 5018F24C0DFDEAC400C013A5 /* cocos2d */;
 			targetProxy = 8EDF3EAB0F6BDA0000F54643 /* PBXContainerItemProxy */;
+		};
+		956A2B2011DE50E800872B77 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 505461DE10616AE100AB7C52 /* FontLabel */;
+			targetProxy = 956A2B1F11DE50E800872B77 /* PBXContainerItemProxy */;
 		};
 		DA5F0EC20FFE96D400C7C82E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
