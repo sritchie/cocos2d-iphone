@@ -227,6 +227,9 @@ Class restartAction()
 	// Turn on display FPS
 	[director setDisplayFPS:YES];
 	
+	// Hi-Res mode
+//	[director setContentScaleFactor:2];
+	
 	CCScene *scene = [CCScene node];
 	[scene addChild: [nextAction() node]];
 	
@@ -243,6 +246,21 @@ Class restartAction()
 -(void) applicationDidBecomeActive:(UIApplication *)application
 {
 	[[CCDirector sharedDirector] resume];
+}
+
+-(void) applicationDidEnterBackground:(UIApplication*)application
+{
+	[[CCDirector sharedDirector] stopAnimation];
+}
+
+-(void) applicationWillEnterForeground:(UIApplication*)application
+{
+	[[CCDirector sharedDirector] startAnimation];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{	
+	[[CCDirector sharedDirector] end];
 }
 
 // purge memory

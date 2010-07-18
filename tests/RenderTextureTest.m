@@ -128,6 +128,9 @@
 	// Turn on display FPS
 	[director setDisplayFPS:YES];
 	
+	// Test HiRes with RenderTexture
+//	[director setContentScaleFactor:2];
+	
 	CCScene *scene = [CCScene node];
 	[scene addChild: [RenderTextureTest node]];
 	
@@ -144,6 +147,21 @@
 -(void) applicationDidBecomeActive:(UIApplication *)application
 {
 	[[CCDirector sharedDirector] resume];
+}
+
+-(void) applicationDidEnterBackground:(UIApplication*)application
+{
+	[[CCDirector sharedDirector] stopAnimation];
+}
+
+-(void) applicationWillEnterForeground:(UIApplication*)application
+{
+	[[CCDirector sharedDirector] startAnimation];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{	
+	[[CCDirector sharedDirector] end];
 }
 
 // purge memory

@@ -17,6 +17,7 @@ BOOL fadingOut;
 	if( (self=[super init] )) {
 		//Get a pointer to the sound engine 
 		sae = [SimpleAudioEngine sharedEngine];
+		[[CDAudioManager sharedManager] setResignBehavior:kAMRBStopPlay autoHandle:YES];
 		actionManager = [CCActionManager sharedManager];
 		
 		//Test preloading two of our files, this will have no performance effect. In reality you would
@@ -176,5 +177,18 @@ BOOL fadingOut;
 		[CDXPropertyModifierAction fadeSoundEffects:2.0f finalVolume:0.0f curveType:kIT_Linear shouldStop:NO];
 	}	
 }	
+
+/**
+ Test unloading effects
+ */
+-(void) testSeven:(id) sender {
+	[sae unloadEffect:@"dp1.caf"];
+	[sae unloadEffect:@"dp2.caf"];
+	//Try loading a non existant file
+	[sae preloadEffect:@"nosuchfile.caf"];
+	[sae preloadEffect:@"dp1.caf"];
+	[sae playEffect:@"dp1.caf"];
+}	
+
 
 @end
