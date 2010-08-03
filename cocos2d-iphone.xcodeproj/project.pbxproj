@@ -808,7 +808,6 @@
 		5068820B0E95761200F943E5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D500B920D5A79C200DBA0E3 /* OpenGLES.framework */; };
 		5068820C0E95761200F943E5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D500B990D5A79CF00DBA0E3 /* QuartzCore.framework */; };
 		5068820D0E95761200F943E5 /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5018F24D0DFDEAC400C013A5 /* libcocos2d.a */; };
-		506882140E95763E00F943E5 /* AtlasTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 506881E70E9575E100F943E5 /* AtlasTest.m */; };
 		506882160E95770400F943E5 /* CCTextureAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = 50637A160E95397A000C9182 /* CCTextureAtlas.m */; };
 		506882690E957C4A00F943E5 /* atlastest.png in Resources */ = {isa = PBXBuildFile; fileRef = 506882680E957C4A00F943E5 /* atlastest.png */; };
 		506884D70E96921100F943E5 /* CCLabelAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = 506884710E96734A00F943E5 /* CCLabelAtlas.m */; };
@@ -1767,6 +1766,10 @@
 		8EDF3FC10F6BE18B00F54643 /* r2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5001659A0E72DB0E0085673F /* r2.png */; };
 		8EDF3FDD0F6BE3FC00F54643 /* listener-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDF3FD90F6BE3F400F54643 /* listener-marker.png */; };
 		8EDF3FDE0F6BE3FC00F54643 /* source-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDF3FDA0F6BE3F400F54643 /* source-marker.png */; };
+		952EA0E51208A925000110FD /* CCSpriteBatchNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 952EA0E31208A925000110FD /* CCSpriteBatchNode.h */; };
+		952EA0E61208A925000110FD /* CCSpriteBatchNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 952EA0E41208A925000110FD /* CCSpriteBatchNode.m */; };
+		952EA1A41208AC6F000110FD /* ccUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 952EA1A21208AC6F000110FD /* ccUtils.c */; };
+		952EA1A51208AC6F000110FD /* ccUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 952EA1A31208AC6F000110FD /* ccUtils.h */; };
 		95F7705D11F374D10045A427 /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507FF879116BF6B000B6FAB2 /* PLBlocks.framework */; };
 		95F7705E11F374E60045A427 /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507FF879116BF6B000B6FAB2 /* PLBlocks.framework */; };
 		95F770E011F376500045A427 /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507FF879116BF6B000B6FAB2 /* PLBlocks.framework */; };
@@ -2707,7 +2710,6 @@
 		5001659E0E72DB470085673F /* b2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b2.png; sourceTree = "<group>"; };
 		5001659F0E72DB470085673F /* f1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = f1.png; sourceTree = "<group>"; };
 		500165A00E72DB470085673F /* f2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = f2.png; sourceTree = "<group>"; };
-		500576EA0F911700002EB855 /* cocos2d-iphone.xcclassmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcclassmodel; path = "cocos2d-iphone.xcclassmodel"; sourceTree = "<group>"; };
 		5006B87C11BB71E000E488BD /* background3-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background3-ipad.png"; sourceTree = "<group>"; };
 		5006BD0D11BCF3C300E488BD /* PerformanceTestChildrenNode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerformanceTestChildrenNode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5006BD1C11BCF48D00E488BD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -3049,8 +3051,6 @@
 		506747C1107A32AE0090963A /* ZAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAttributedString.h; sourceTree = "<group>"; };
 		506747C2107A32AE0090963A /* ZAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAttributedString.m; sourceTree = "<group>"; };
 		506747C3107A32AE0090963A /* ZAttributedStringPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAttributedStringPrivate.h; sourceTree = "<group>"; };
-		506881E60E9575E100F943E5 /* AtlasTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AtlasTest.h; path = tests/AtlasTest.h; sourceTree = "<group>"; };
-		506881E70E9575E100F943E5 /* AtlasTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AtlasTest.m; path = tests/AtlasTest.m; sourceTree = "<group>"; };
 		506882110E95761200F943E5 /* AtlasTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtlasTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		506882680E957C4A00F943E5 /* atlastest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atlastest.png; sourceTree = "<group>"; };
 		506884700E96734A00F943E5 /* CCLabelAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLabelAtlas.h; sourceTree = "<group>"; };
@@ -3583,6 +3583,10 @@
 		8EDF3ED80F6BDA0000F54643 /* SoundEngineTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundEngineTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EDF3FD90F6BE3F400F54643 /* listener-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "listener-marker.png"; path = "experimental/sound-engine/sound-engine-sample/listener-marker.png"; sourceTree = SOURCE_ROOT; };
 		8EDF3FDA0F6BE3F400F54643 /* source-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "source-marker.png"; path = "experimental/sound-engine/sound-engine-sample/source-marker.png"; sourceTree = SOURCE_ROOT; };
+		952EA0E31208A925000110FD /* CCSpriteBatchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCSpriteBatchNode.h; path = "Library/cocos2d-iphone/cocos2d/CCSpriteBatchNode.h"; sourceTree = DEVELOPER_DIR; };
+		952EA0E41208A925000110FD /* CCSpriteBatchNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCSpriteBatchNode.m; path = "Library/cocos2d-iphone/cocos2d/CCSpriteBatchNode.m"; sourceTree = DEVELOPER_DIR; };
+		952EA1A21208AC6F000110FD /* ccUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ccUtils.c; path = "Library/cocos2d-iphone/cocos2d/Support/ccUtils.c"; sourceTree = DEVELOPER_DIR; };
+		952EA1A31208AC6F000110FD /* ccUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ccUtils.h; path = "Library/cocos2d-iphone/cocos2d/Support/ccUtils.h"; sourceTree = DEVELOPER_DIR; };
 		AAEA834A0FD5704400F08728 /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocks.png; sourceTree = "<group>"; };
 		DA90D87B1059A54D0039F26A /* FontTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontTest.h; path = tests/FontTest.h; sourceTree = "<group>"; };
 		DA90D87C1059A54D0039F26A /* FontTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontTest.m; path = tests/FontTest.m; sourceTree = "<group>"; };
@@ -4561,7 +4565,6 @@
 				505460E91061413300AB7C52 /* Fonts */,
 				50B2CB260E10EE4A00AE9530 /* Images */,
 				8EDF3E8D0F6BD8CD00F54643 /* sfx */,
-				500576EA0F911700002EB855 /* cocos2d-iphone.xcclassmodel */,
 				50B2CB2B0E10EE4A00AE9530 /* Info.plist */,
 				5050C7560F927156004BE2D8 /* InfoWithStatusBar.plist */,
 				50B2CEA70E12A58900AE9530 /* ChipmunkDemo-Info.plist */,
@@ -4780,6 +4783,8 @@
 				50D898FA1192CB8300458C29 /* Data Structures */,
 				501CCFB70E99659400B86F68 /* ImageSupport */,
 				501CCFB60E99658900B86F68 /* OpenGLSupport */,
+				952EA1A21208AC6F000110FD /* ccUtils.c */,
+				952EA1A31208AC6F000110FD /* ccUtils.h */,
 				503798C40F912C2000986724 /* CGPointExtension.h */,
 				503798C50F912C2000986724 /* CGPointExtension.m */,
 				50C508C40F7C194400799124 /* CCFileUtils.h */,
@@ -5249,6 +5254,8 @@
 		506414C40F9C6792007A7B24 /* Sprite Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				952EA0E31208A925000110FD /* CCSpriteBatchNode.h */,
+				952EA0E41208A925000110FD /* CCSpriteBatchNode.m */,
 				509A79990F6188500032F449 /* CCSpriteSheet.h */,
 				509A799A0F6188500032F449 /* CCSpriteSheet.m */,
 				509A79950F6188420032F449 /* CCSprite.h */,
@@ -5680,8 +5687,6 @@
 				504CC3451035BECA0096894C /* ActionManagerTest.m */,
 				50C93AC30E0BF8FC00517B01 /* ActionsTest.h */,
 				50C93AC40E0BF8FC00517B01 /* ActionsTest.m */,
-				506881E60E9575E100F943E5 /* AtlasTest.h */,
-				506881E70E9575E100F943E5 /* AtlasTest.m */,
 				504227120FC0B96E00B992F7 /* Box2dTest.h */,
 				504227130FC0B96E00B992F7 /* Box2dTest.mm */,
 				506C77E50E01524200B48100 /* ClickAndMoveTest.h */,
@@ -6213,6 +6218,8 @@
 				508043E011BEE9300039CA83 /* CCArray.h in Headers */,
 				505F4C3611BFA68B002DCD39 /* ES1Renderer.h in Headers */,
 				505F4C3911BFA6E7002DCD39 /* ESRenderer.h in Headers */,
+				952EA0E51208A925000110FD /* CCSpriteBatchNode.h in Headers */,
+				952EA1A51208AC6F000110FD /* ccUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7618,7 +7625,6 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "cocos2d-iphone" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -9118,6 +9124,8 @@
 				50FBB2DB117613F500150761 /* CCPropertyAction.m in Sources */,
 				5080435311BEE8D60039CA83 /* CCArray.m in Sources */,
 				505F4C3511BFA68B002DCD39 /* ES1Renderer.m in Sources */,
+				952EA0E61208A925000110FD /* CCSpriteBatchNode.m in Sources */,
+				952EA1A41208AC6F000110FD /* ccUtils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9392,7 +9400,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				506882140E95763E00F943E5 /* AtlasTest.m in Sources */,
 				506882050E95761200F943E5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
