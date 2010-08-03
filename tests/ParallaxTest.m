@@ -133,8 +133,8 @@ Class restartAction()
 	// change the transform anchor to 0,0 (optional)
 	tilemap.anchorPoint = ccp(0, 0);
 
-	// Aliased images
-//	[tilemap.texture setAliasTexParameters];
+	// Anti Aliased images
+	[tilemap.texture setAntiAliasTexParameters];
 	
 
 	// background layer: another image
@@ -211,8 +211,9 @@ Class restartAction()
 		// change the transform anchor to 0,0 (optional)
 		tilemap.anchorPoint = ccp(0, 0);
 		
-		// Aliased images
-//		[tilemap.texture setAliasTexParameters];
+		// Anti Aliased images
+		[tilemap.texture setAntiAliasTexParameters];
+
 		
 		
 		// background layer: another image
@@ -341,9 +342,10 @@ Class restartAction()
 	[[CCDirector sharedDirector] startAnimation];
 }
 
+// application will be killed
 - (void)applicationWillTerminate:(UIApplication *)application
 {	
-	[[CCDirector sharedDirector] end];
+	CC_DIRECTOR_END();
 }
 
 // purge memory

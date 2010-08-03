@@ -572,7 +572,7 @@ Class restartTest()
 {
 	ticks++;
 
-	CCLOG(@"schedUpdate: %.2f", dt);
+	NSLog(@"schedUpdate: %.2f", dt);
 	if( ticks > 3 ) {
 		[self schedule:_cmd interval:++interval];
 		ticks = 0;
@@ -647,9 +647,10 @@ Class restartTest()
 	[[CCDirector sharedDirector] startAnimation];
 }
 
+// application will be killed
 - (void)applicationWillTerminate:(UIApplication *)application
 {	
-	[[CCDirector sharedDirector] end];
+	CC_DIRECTOR_END();
 }
 
 // purge memory
