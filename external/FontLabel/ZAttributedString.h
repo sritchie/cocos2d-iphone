@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #if NS_BLOCKS_AVAILABLE
-#define Z_BLOCKS 1
+#define Z_BLOCKS 0
 #else
 // set this to 1 if you are using PLBlocks
 #define Z_BLOCKS 0

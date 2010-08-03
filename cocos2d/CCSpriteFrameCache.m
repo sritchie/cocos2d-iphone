@@ -91,12 +91,13 @@ static CCSpriteFrameCache *sharedSpriteFrameCache_=nil;
 -(void) addSpriteFramesWithDictionary:(NSDictionary*)dictionary texture:(CCTexture2D*)texture
 {
 	/*
-	Supported Zwoptex Formats:
-		enum {
-			ZWTCoordinatesListXMLFormat_Legacy = 0
-			ZWTCoordinatesListXMLFormat_v1_0,
-		};
-	*/
+	 Supported Zwoptex Formats:
+	 enum {
+	 ZWTCoordinatesListXMLFormat_Legacy = 0 // Flash
+	 ZWTCoordinatesListXMLFormat_v1_0, // Desktop 0.4b and earlier
+	 ZWTCoordinatesListXMLFormat_v1_1, // Desktop 1.0 and later
+	 };
+	 */
 	NSDictionary *metadataDict = [dictionary objectForKey:@"metadata"];
 	NSDictionary *framesDict = [dictionary objectForKey:@"frames"];
 	int format = 0;
@@ -107,7 +108,7 @@ static CCSpriteFrameCache *sharedSpriteFrameCache_=nil;
 	}
 	
 	// check the format
-	if(format < 0 || format > 1) {
+	if(format < 0 || format > 2) {
 		NSAssert(NO,@"cocos2d: WARNING: format is not supported for CCSpriteFrameCache addSpriteFramesWithDictionary:texture:");
 		return;
 	}
@@ -126,30 +127,27 @@ static CCSpriteFrameCache *sharedSpriteFrameCache_=nil;
 			int oh = [[frameDict objectForKey:@"originalHeight"] intValue];
 			// check ow/oh
 			if(!ow || !oh) {
-				CCLOG(@"cocos2d: WARNING: originalWidth/Height not found on the CCSpriteFrame. AnchorPoint won't work as expected. Regenerate the .plist");
+				CCLOG(@"cocos2d: WARNING: originalWidth/Height not found on the CCSpriteFrame. AnchorPoint won't work as expected. Regenrate the .plist");
 			}
 			// abs ow/oh
 			ow = abs(ow);
 			oh = abs(oh);
 			// create frame
 			spriteFrame = [CCSpriteFrame frameWithTexture:texture rect:CGRectMake(x, y, w, h) offset:CGPointMake(ox, oy) originalSize:CGSizeMake(ow, oh)];
-		} else if(format == 1) {
+		} else if(format == 1 || format == 2) {
 			CGRect frame = CGRectFromString([frameDict objectForKey:@"frame"]);
 			CGPoint offset = CGPointFromString([frameDict objectForKey:@"offset"]);
 			CGSize sourceSize = CGSizeFromString([frameDict objectForKey:@"sourceSize"]);
 			/*
-			CGRect sourceColorRect = CGRectFromString([frameDict objectForKey:@"sourceColorRect"]);
-			int leftTrim = sourceColorRect.origin.x;
-			int topTrim = sourceColorRect.origin.y;
-			int rightTrim = sourceColorRect.size.width + leftTrim;
-			int bottomTrim = sourceColorRect.size.height + topTrim;
-			*/
+			 CGRect sourceColorRect = CGRectFromString([frameDict objectForKey:@"sourceColorRect"]);
+			 int leftTrim = sourceColorRect.origin.x;
+			 int topTrim = sourceColorRect.origin.y;
+			 int rightTrim = sourceColorRect.size.width + leftTrim;
+			 int bottomTrim = sourceColorRect.size.height + topTrim;
+			 */
 			// create frame
 			spriteFrame = [CCSpriteFrame frameWithTexture:texture rect:frame offset:offset originalSize:sourceSize];
-		} else {
-			CCLOG(@"cocos2d: Unsupported Zwoptex version. Update cocos2d");
 		}
-
 		// add sprite frame
 		[spriteFrames setObject:spriteFrame forKey:frameDictKey];
 	}
