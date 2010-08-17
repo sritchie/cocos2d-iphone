@@ -7625,6 +7625,7 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "cocos2d-iphone" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -10739,7 +10740,7 @@
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = coop.plausible.blocks.compilers.gcc.4_2;
+				GCC_VERSION = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/build/Debug-iphonesimulator\"",
@@ -10747,6 +10748,7 @@
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = cocos2d;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
@@ -10762,7 +10764,7 @@
 					"\"$(DEVELOPER_DIR)/Library/cocos2d-iphone\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_VERSION = coop.plausible.blocks.compilers.gcc.4_2;
+				GCC_VERSION = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/build/Debug-iphonesimulator\"",
@@ -10770,6 +10772,7 @@
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = cocos2d;
+				SDKROOT = iphoneos4.1;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -13245,7 +13248,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_VERSION = coop.plausible.blocks.compilers.gcc.4_2;
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
@@ -13255,7 +13258,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -13278,7 +13281,7 @@
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = coop.plausible.blocks.compilers.gcc.4_2;
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
@@ -13287,7 +13290,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
