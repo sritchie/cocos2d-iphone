@@ -37,7 +37,6 @@ enum {
 	kCCiOSVersion_4_0   = 0x04000000,
 	kCCiOSVersion_4_0_1 = 0x04000100,
 	kCCiOSVersion_4_1   = 0x04010000,
-
 };
 
 /**
