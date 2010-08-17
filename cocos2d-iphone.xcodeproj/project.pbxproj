@@ -1768,8 +1768,8 @@
 		8EDF3FDE0F6BE3FC00F54643 /* source-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDF3FDA0F6BE3F400F54643 /* source-marker.png */; };
 		952EA0E51208A925000110FD /* CCSpriteBatchNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 952EA0E31208A925000110FD /* CCSpriteBatchNode.h */; };
 		952EA0E61208A925000110FD /* CCSpriteBatchNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 952EA0E41208A925000110FD /* CCSpriteBatchNode.m */; };
-		952EA1A41208AC6F000110FD /* ccUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 952EA1A21208AC6F000110FD /* ccUtils.c */; };
-		952EA1A51208AC6F000110FD /* ccUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 952EA1A31208AC6F000110FD /* ccUtils.h */; };
+		95EA384F121B2946004B72CE /* ccUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 95EA384D121B2946004B72CE /* ccUtils.c */; };
+		95EA3850121B2946004B72CE /* ccUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 95EA384E121B2946004B72CE /* ccUtils.h */; };
 		95F7705D11F374D10045A427 /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507FF879116BF6B000B6FAB2 /* PLBlocks.framework */; };
 		95F7705E11F374E60045A427 /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507FF879116BF6B000B6FAB2 /* PLBlocks.framework */; };
 		95F770E011F376500045A427 /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507FF879116BF6B000B6FAB2 /* PLBlocks.framework */; };
@@ -3585,8 +3585,8 @@
 		8EDF3FDA0F6BE3F400F54643 /* source-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "source-marker.png"; path = "experimental/sound-engine/sound-engine-sample/source-marker.png"; sourceTree = SOURCE_ROOT; };
 		952EA0E31208A925000110FD /* CCSpriteBatchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCSpriteBatchNode.h; path = "Library/cocos2d-iphone/cocos2d/CCSpriteBatchNode.h"; sourceTree = DEVELOPER_DIR; };
 		952EA0E41208A925000110FD /* CCSpriteBatchNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCSpriteBatchNode.m; path = "Library/cocos2d-iphone/cocos2d/CCSpriteBatchNode.m"; sourceTree = DEVELOPER_DIR; };
-		952EA1A21208AC6F000110FD /* ccUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ccUtils.c; path = "Library/cocos2d-iphone/cocos2d/Support/ccUtils.c"; sourceTree = DEVELOPER_DIR; };
-		952EA1A31208AC6F000110FD /* ccUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ccUtils.h; path = "Library/cocos2d-iphone/cocos2d/Support/ccUtils.h"; sourceTree = DEVELOPER_DIR; };
+		95EA384D121B2946004B72CE /* ccUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccUtils.c; sourceTree = "<group>"; };
+		95EA384E121B2946004B72CE /* ccUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccUtils.h; sourceTree = "<group>"; };
 		AAEA834A0FD5704400F08728 /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocks.png; sourceTree = "<group>"; };
 		DA90D87B1059A54D0039F26A /* FontTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontTest.h; path = tests/FontTest.h; sourceTree = "<group>"; };
 		DA90D87C1059A54D0039F26A /* FontTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontTest.m; path = tests/FontTest.m; sourceTree = "<group>"; };
@@ -4783,8 +4783,8 @@
 				50D898FA1192CB8300458C29 /* Data Structures */,
 				501CCFB70E99659400B86F68 /* ImageSupport */,
 				501CCFB60E99658900B86F68 /* OpenGLSupport */,
-				952EA1A21208AC6F000110FD /* ccUtils.c */,
-				952EA1A31208AC6F000110FD /* ccUtils.h */,
+				95EA384D121B2946004B72CE /* ccUtils.c */,
+				95EA384E121B2946004B72CE /* ccUtils.h */,
 				503798C40F912C2000986724 /* CGPointExtension.h */,
 				503798C50F912C2000986724 /* CGPointExtension.m */,
 				50C508C40F7C194400799124 /* CCFileUtils.h */,
@@ -6219,7 +6219,7 @@
 				505F4C3611BFA68B002DCD39 /* ES1Renderer.h in Headers */,
 				505F4C3911BFA6E7002DCD39 /* ESRenderer.h in Headers */,
 				952EA0E51208A925000110FD /* CCSpriteBatchNode.h in Headers */,
-				952EA1A51208AC6F000110FD /* ccUtils.h in Headers */,
+				95EA3850121B2946004B72CE /* ccUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9126,7 +9126,7 @@
 				5080435311BEE8D60039CA83 /* CCArray.m in Sources */,
 				505F4C3511BFA68B002DCD39 /* ES1Renderer.m in Sources */,
 				952EA0E61208A925000110FD /* CCSpriteBatchNode.m in Sources */,
-				952EA1A41208AC6F000110FD /* ccUtils.c in Sources */,
+				95EA384F121B2946004B72CE /* ccUtils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
