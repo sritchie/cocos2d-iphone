@@ -714,11 +714,7 @@ static BOOL configured = FALSE;
 	if (flags == AVAudioSessionInterruptionFlags_ShouldResume) {
 		[self audioSessionResumed];
 	}	
-<<<<<<< HEAD
-}	
-=======
 }
->>>>>>> 151c935a2fc3aa7b4ec22dc8d23ded900736154d
 #endif
 
 -(void)audioSessionInterrupted 
