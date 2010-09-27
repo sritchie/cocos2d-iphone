@@ -52,11 +52,9 @@ enum {
 @synthesize isSelected=isSelected_;
 -(id) init
 {
-	NSException* myException = [NSException
-								exceptionWithName:@"MenuItemInit"
-								reason:@"Init not supported. Use InitFromString"
-								userInfo:nil];
-	@throw myException;	
+	NSAssert(NO, @"MenuItemInit: Init not supported.");
+	[self release];
+	return nil;
 }
 
 +(id) itemWithTarget:(id) r selector:(SEL) s
@@ -145,9 +143,9 @@ enum {
 
 -(CGRect) rect
 {
-	return CGRectMake( self.position.x - contentSize_.width*anchorPoint_.x, self.position.y-
-					  contentSize_.height*anchorPoint_.y,
-					  contentSize_.width, contentSize_.height);
+	return CGRectMake( position_.x - contentSizeInPixels_.width*anchorPoint_.x,
+					  position_.y - contentSizeInPixels_.height*anchorPoint_.y,
+					  contentSizeInPixels_.width, contentSizeInPixels_.height);
 }
 @end
 
