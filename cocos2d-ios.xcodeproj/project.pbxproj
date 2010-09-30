@@ -642,7 +642,6 @@
 		5054620310616B0700AB7C52 /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 505461FB10616B0700AB7C52 /* FontManager.m */; };
 		5054620410616B0700AB7C52 /* ZFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 505461FC10616B0700AB7C52 /* ZFont.h */; };
 		5054620510616B0700AB7C52 /* ZFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 505461FD10616B0700AB7C52 /* ZFont.m */; };
-		5054620810616B3400AB7C52 /* libFontLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 505461DF10616AE100AB7C52 /* libFontLabel.a */; };
 		505462FC1062768000AB7C52 /* ccConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 505462FB1062768000AB7C52 /* ccConfig.h */; };
 		505463A21062867800AB7C52 /* bitmapFontTest.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 505463971062867800AB7C52 /* bitmapFontTest.fnt */; };
 		505463A31062867800AB7C52 /* bitmapFontTest.png in Resources */ = {isa = PBXBuildFile; fileRef = 505463981062867800AB7C52 /* bitmapFontTest.png */; };
@@ -4273,7 +4272,6 @@
 				5018F2E50DFDEBBA00C013A5 /* OpenGLES.framework in Frameworks */,
 				5018F2E60DFDEBBA00C013A5 /* QuartzCore.framework in Frameworks */,
 				503092B310447296005F7AFC /* libz.dylib in Frameworks */,
-				5054620810616B3400AB7C52 /* libFontLabel.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11946,6 +11944,7 @@
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/build/Debug-iphonesimulator\"",
@@ -11964,6 +11963,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/build/Debug-iphonesimulator\"",
@@ -14430,7 +14430,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = coop.plausible.blocks.compilers.gcc.4_2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
@@ -14463,7 +14463,7 @@
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = coop.plausible.blocks.compilers.gcc.4_2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
