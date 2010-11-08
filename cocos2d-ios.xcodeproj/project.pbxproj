@@ -1739,6 +1739,7 @@
 		8EDF3FC10F6BE18B00F54643 /* r2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5001659A0E72DB0E0085673F /* r2.png */; };
 		8EDF3FDD0F6BE3FC00F54643 /* listener-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDF3FD90F6BE3F400F54643 /* listener-marker.png */; };
 		8EDF3FDE0F6BE3FC00F54643 /* source-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDF3FDA0F6BE3F400F54643 /* source-marker.png */; };
+		95E97AFD12553EF400E66A58 /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95E97AFC12553EF400E66A58 /* PLBlocks.framework */; };
 		AAEA834B0FD5704400F08728 /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEA834A0FD5704400F08728 /* blocks.png */; };
 		DA5F0EC50FFE96D400C7C82E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B2CB240E10EE4A00AE9530 /* Default.png */; };
 		DA5F0EC60FFE96D400C7C82E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B2CB250E10EE4A00AE9530 /* Icon.png */; };
@@ -4043,6 +4044,7 @@
 		8EDF3ED80F6BDA0000F54643 /* SoundEngineTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundEngineTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EDF3FD90F6BE3F400F54643 /* listener-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "listener-marker.png"; path = "experimental/sound-engine/sound-engine-sample/listener-marker.png"; sourceTree = SOURCE_ROOT; };
 		8EDF3FDA0F6BE3F400F54643 /* source-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "source-marker.png"; path = "experimental/sound-engine/sound-engine-sample/source-marker.png"; sourceTree = SOURCE_ROOT; };
+		95E97AFC12553EF400E66A58 /* PLBlocks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PLBlocks.framework; path = "Library/cocos2d-iphone/PLBlocks.framework"; sourceTree = DEVELOPER_DIR; };
 		AAEA834A0FD5704400F08728 /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocks.png; sourceTree = "<group>"; };
 		DA90D87B1059A54D0039F26A /* FontTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontTest.h; path = tests/FontTest.h; sourceTree = "<group>"; };
 		DA90D87C1059A54D0039F26A /* FontTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontTest.m; path = tests/FontTest.m; sourceTree = "<group>"; };
@@ -4272,6 +4274,7 @@
 				5018F2E50DFDEBBA00C013A5 /* OpenGLES.framework in Frameworks */,
 				5018F2E60DFDEBBA00C013A5 /* QuartzCore.framework in Frameworks */,
 				503092B310447296005F7AFC /* libz.dylib in Frameworks */,
+				95E97AFD12553EF400E66A58 /* PLBlocks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5161,6 +5164,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				95E97AFC12553EF400E66A58 /* PLBlocks.framework */,
 				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2D500B920D5A79C200DBA0E3 /* OpenGLES.framework */,
@@ -11942,6 +11946,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Library/cocos2d-iphone\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -11962,6 +11970,10 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Library/cocos2d-iphone\"",
+				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
