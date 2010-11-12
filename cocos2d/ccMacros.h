@@ -161,7 +161,11 @@ do	{																							\
 	EAGLView *__glView = [EAGLView viewWithFrame:[window bounds]								\
 									pixelFormat:kEAGLColorFormatRGB565							\
 									depthFormat:0 /* GL_DEPTH_COMPONENT24_OES */				\
-							 preserveBackbuffer:NO];											\
+							 preserveBackbuffer:NO												\
+									 sharegroup:nil												\
+								  multiSampling:NO												\
+								numberOfSamples:0												\
+													];											\
 	[__director setOpenGLView:__glView];														\
 	[window addSubview:__glView];																\
 	[window makeKeyAndVisible];																	\
@@ -182,12 +186,12 @@ do {															\
 } while(0)
 
 
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#import "Platforms/iOS/CCDirectorIOS.h"
 /** @def CC_CONTENT_SCALE_FACTOR
 	On Mac it returns 1;
 	On iPhone it returns 2 if RetinaDisplay is On. Otherwise it returns 1
 */
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-#import "Platforms/iOS/CCDirectorIOS.h"
 #define CC_CONTENT_SCALE_FACTOR() __ccContentScaleFactor
 #elif __MAC_OS_X_VERSION_MAX_ALLOWED
 #define CC_CONTENT_SCALE_FACTOR() 1

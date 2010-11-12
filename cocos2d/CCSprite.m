@@ -31,6 +31,8 @@
 #import "CCSprite.h"
 #import "CCSpriteFrame.h"
 #import "CCSpriteFrameCache.h"
+#import "CCAnimation.h"
+#import "CCAnimationCache.h"
 #import "CCTextureCache.h"
 #import "Support/CGPointExtension.h"
 #import "CCDrawingPrimitives.h"
@@ -623,11 +625,11 @@ struct transformValues_ {
 
 #pragma mark CCSprite - CCNode overrides
 
--(id) addChild:(CCSprite*)child z:(int)z tag:(int) aTag
+-(void) addChild:(CCSprite*)child z:(int)z tag:(int) aTag
 {
 	NSAssert( child != nil, @"Argument must be non-nil");
 	
-	id ret = [super addChild:child z:z tag:aTag];
+	[super addChild:child z:z tag:aTag];
 	
 	if( usesBatchNode_ ) {
 		NSAssert( [child isKindOfClass:[CCSprite class]], @"CCSprite only supports CCSprites as children when using CCSpriteBatchNode");
@@ -638,8 +640,6 @@ struct transformValues_ {
 	}
 	
 	hasChildren_ = YES;
-
-	return ret;
 }
 
 -(void) reorderChild:(CCSprite*)child z:(int)z
@@ -714,6 +714,12 @@ struct transformValues_ {
 -(void)setPosition:(CGPoint)pos
 {
 	[super setPosition:pos];
+	SET_DIRTY_RECURSIVELY();
+}
+
+-(void)setPositionInPixels:(CGPoint)pos
+{
+	[super setPositionInPixels:pos];
 	SET_DIRTY_RECURSIVELY();
 }
 
@@ -872,9 +878,9 @@ struct transformValues_ {
 }
 
 //
-// CCFrameProtocol protocol
+// Frames
 //
-#pragma mark CCSprite - CCFrameProtocol protocol
+#pragma mark CCSprite - Frames
 
 -(void) setDisplayFrame:(CCSpriteFrame*)frame
 {
@@ -890,6 +896,7 @@ struct transformValues_ {
 	[self setTextureRectInPixels:frame.rectInPixels rotated:frame.rotated untrimmedSize:frame.originalSizeInPixels];
 }
 
+// XXX deprecated
 -(void) setDisplayFrame: (NSString*) animationName index:(int) frameIndex
 {
 	if( ! animations_ )
@@ -902,6 +909,22 @@ struct transformValues_ {
 	
 	[self setDisplayFrame:frame];
 }
+
+-(void) setDisplayFrameWithAnimationName: (NSString*) animationName index:(int) frameIndex
+{
+	NSAssert( animationName, @"CCSprite#setDisplayFrameWithAnimationName. animationName must not be nil");
+	
+	CCAnimation *a = [[CCAnimationCache sharedAnimationCache] animationByName:animationName];
+	
+	NSAssert( a, @"CCSprite#setDisplayFrameWithAnimationName: Frame not found");
+	
+	CCSpriteFrame *frame = [[a frames] objectAtIndex:frameIndex];
+	
+	NSAssert( frame, @"CCSprite#setDisplayFrame. Invalid frame");
+	
+	[self setDisplayFrame:frame];
+}
+
 
 -(BOOL) isFrameDisplayed:(CCSpriteFrame*)frame 
 {

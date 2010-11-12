@@ -98,7 +98,7 @@ enum {
 }
 
 -(id) initWithBlock:(void(^)(id sender))block {
-	block_ = BLOCK_RETAIN(block);
+	block_ = [block copy];
 	return [self initWithTarget:block_ selector:@selector(ccCallbackBlockWithSender:)];
 }
 
@@ -143,10 +143,11 @@ enum {
 
 -(CGRect) rect
 {
-	return CGRectMake( position_.x - contentSizeInPixels_.width*anchorPoint_.x,
-					  position_.y - contentSizeInPixels_.height*anchorPoint_.y,
-					  contentSizeInPixels_.width, contentSizeInPixels_.height);
+	return CGRectMake( position_.x - contentSize_.width*anchorPoint_.x,
+					  position_.y - contentSize_.height*anchorPoint_.y,
+					  contentSize_.width, contentSize_.height);	
 }
+
 @end
 
 
@@ -180,7 +181,7 @@ enum {
 }
 
 -(id) initWithLabel:(CCNode<CCLabelProtocol,CCRGBAProtocol>*)label block:(void(^)(id sender))block {
-	block_ = BLOCK_RETAIN(block);
+	block_ = [block copy];
 	return [self initWithLabel:label target:block_ selector:@selector(ccCallbackBlockWithSender:)];
 }
 
@@ -316,7 +317,7 @@ enum {
 }
 
 -(id) initFromString:(NSString*)value charMapFile:(NSString*)charMapFile itemWidth:(int)itemWidth itemHeight:(int)itemHeight startCharMap:(char)startCharMap block:(void(^)(id sender))block {
-	block_ = BLOCK_RETAIN(block);
+	block_ = [block copy];
 	return [self initFromString:value charMapFile:charMapFile itemWidth:itemWidth itemHeight:itemHeight startCharMap:startCharMap target:block_ selector:@selector(ccCallbackBlockWithSender:)];
 }
 #endif // NS_BLOCKS_AVAILABLE
@@ -386,7 +387,7 @@ enum {
 }
 
 -(id) initFromString: (NSString*) value block:(void(^)(id sender))block {
-	block_ = BLOCK_RETAIN(block);
+	block_ = [block copy];
 	return [self initFromString:value target:block_ selector:@selector(ccCallbackBlockWithSender:)];
 }
 #endif // NS_BLOCKS_AVAILABLE
@@ -438,7 +439,7 @@ enum {
 }
 
 -(id) initFromNormalSprite:(CCNode<CCRGBAProtocol>*)normalSprite selectedSprite:(CCNode<CCRGBAProtocol>*)selectedSprite disabledSprite:(CCNode<CCRGBAProtocol>*)disabledSprite block:(void(^)(id sender))block {
-	block_ = BLOCK_RETAIN(block);
+	block_ = [block copy];
 	return [self initFromNormalSprite:normalSprite selectedSprite:selectedSprite disabledSprite:disabledSprite target:block_ selector:@selector(ccCallbackBlockWithSender:)];
 }
 #endif // NS_BLOCKS_AVAILABLE
@@ -544,7 +545,7 @@ enum {
 }
 
 -(id) initFromNormalImage: (NSString*) value selectedImage:(NSString*)value2 disabledImage:(NSString*) value3 block:(void(^)(id sender))block {
-	block_ = BLOCK_RETAIN(block);
+	block_ = [block copy];
 	return [self initFromNormalImage:value selectedImage:value2 disabledImage:value3 target:block_ selector:@selector(ccCallbackBlockWithSender:)];
 }
 
@@ -608,7 +609,7 @@ enum {
 }
 
 -(id) initWithBlock:(void (^)(id))block items:(CCMenuItem*)item vaList:(va_list)args {
-	block_ = BLOCK_RETAIN(block);
+	block_ = [block copy];
 	return [self initWithTarget:block_ selector:@selector(ccCallbackBlockWithSender:) items:item vaList:args];
 }
 

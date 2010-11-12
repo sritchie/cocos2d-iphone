@@ -136,8 +136,8 @@ Class restartAction()
 		// It's possible to modify the RenderTexture blending function by
 //		[[target sprite] setBlendFunc:(ccBlendFunc) {GL_ONE, GL_ONE_MINUS_SRC_ALPHA}];
 		
-		// note that the render texture is a cocosnode, and contains a sprite of it's texture for convience,
-		// so we can just parent it to the scene like any other cocos node
+		// note that the render texture is a CCNode, and contains a sprite of its texture for convience,
+		// so we can just parent it to the scene like any other CCNode
 		[self addChild:target z:1];
 		
 		// create a brush image to draw into the texture with
@@ -190,8 +190,7 @@ Class restartAction()
 	[brush release];
 	[target release];
 	[[CCTextureCache sharedTextureCache] removeUnusedTextures];
-	[super dealloc];
-	
+	[super dealloc];	
 }
 
 
@@ -382,8 +381,7 @@ Class restartAction()
 	// Create an EAGLView with a RGB8 color buffer, and a depth buffer of 24-bits
 	EAGLView *glView = [EAGLView viewWithFrame:[window bounds]
 								   pixelFormat:kEAGLColorFormatRGB565
-								   depthFormat:GL_DEPTH_COMPONENT24_OES
-							preserveBackbuffer:NO];
+								   depthFormat:GL_DEPTH_COMPONENT24_OES];
 	
 	// attach the openglView to the director
 	[director setOpenGLView:glView];
@@ -392,8 +390,8 @@ Class restartAction()
 //	[director setProjection:kCCDirectorProjection2D];
 	
 	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
-	if ([UIScreen instancesRespondToSelector:@selector(scale)])
-		[director setContentScaleFactor:[[UIScreen mainScreen] scale]];
+	if( ! [director enableRetinaDisplay:YES] )
+		CCLOG(@"Retina Display Not supported");
 	
 	// make the OpenGLView a child of the main window
 	[window addSubview:glView];

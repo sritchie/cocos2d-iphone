@@ -43,6 +43,8 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 	* Barney Mattox:
 		templates use rfc1034identifier patch.
 		XCode doxygen script runs with spaces in subdirectories.	
+	* Booyah (http://booyah.com/):
+		Added support for GL sharegroup in EAGLView
 	* Brian Hammond:
 		patches for Demos
 	* Bryan/Acceleroto (http://www.acceleroto.com):
@@ -177,6 +179,9 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		RotateTo uses min distance patch
 	* kasatani:
 		AtlasSprite index 0 is not overwritten
+	* keisuke.hata:
+		TouchTest works in RetinaDisplay
+		Node: convertToNodeSpace works on RetinaDisplay
 	* kermidt.zed:
 		patches for absolutePosition in CocosNode
 		patches for Labels in Texture2D
@@ -246,6 +251,8 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		CCArray: improved performance in insert & delete elements
 	* Marco Tillemans:
 		RenderTexture renders images with correct blend function. patch.
+		RenderTexture: performance fixes. Improved logic.
+		Added multisampling anti-aliasing support in EAGLView, ESRenderer
 	* marcu.catalin:
 		Menu items are not consumed is items are not visible
 	* Mark Cooke:
@@ -296,7 +303,7 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		Author of bug #915 test case
 	* palter AT clozure.com
 		Texture fails gracefully if PVR image can't be loaded (patch)
-	* Patrick Wolocicz:
+	* Patrick Wolowicz:
 		mkatlas: added artifact removal by copying borders to margins
 	* Piero Tofy (http://indieappsalliance.org):
 		Author of the scraper script used to parse games data in the cocos2d site
@@ -327,6 +334,7 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		migrated all cocos2d code and all test to using the CC namespace
 	* sakamoto.kazuki:
 		2d projection works OK with HighRes. patch.
+		Performance improvement in CCNode#insertChild. patch.
 	* samkass:
 		install_template.sh suports custom directory. patch.
 		install-template can be installed in user directory. patch.
@@ -338,6 +346,8 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 	* sflory:
 		new way to added CGImageRef to TextureMgr
 		added unicode support in BitmapFontAtlas
+	* shire8bit:
+		PageTurnTransition: fixed artifacts
 	* Sindesso Pty Ltd & David Durbin (http://www.sindesso.com/):
 		author of PageTurn3D action
 		author of PageTurn3DTransition
@@ -401,6 +411,8 @@ People/companies who were/are contributing code to cocos2d for iPhone (alphabeti
 		Author of the transformations caches. world2local, local2world runs faster.
 		fixes for Repeat action. It doesn't skip integer values
 		CocosNode#children is an explicit property
+	* Wayne Marsh:
+		AnimationCache: patch to support animation cache
 	* yarrington:
 		patches for Director
 

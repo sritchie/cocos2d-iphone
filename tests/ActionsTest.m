@@ -14,32 +14,34 @@ enum {
 
 static int sceneIdx=-1;
 static NSString *transitions[] = {
-					@"ActionManual",
-					@"ActionMove",
-					@"ActionRotate",
-					@"ActionScale",
-					@"ActionJump",
-					@"ActionBezier",
-					@"ActionBlink",
-					@"ActionFade",
-					@"ActionTint",
-					@"ActionAnimate",
-					@"ActionSequence",
-					@"ActionSequence2",
-					@"ActionSpawn",
-					@"ActionReverse",
-					@"ActionDelayTime",
-					@"ActionRepeat",
-					@"ActionRepeatForever",
-					@"ActionRotateToRepeat",
-					@"ActionRotateJerk",
-					@"ActionCallFunc",
-					@"ActionCallFuncND",
-					@"ActionReverseSequence",
-					@"ActionReverseSequence2",
-					@"ActionOrbit",
-					@"ActionFollow",
-					@"ActionProperty",
+	
+	@"ActionManual",
+	@"ActionMove",
+	@"ActionRotate",
+	@"ActionScale",
+	@"ActionJump",
+	@"ActionBezier",
+	@"ActionBlink",
+	@"ActionFade",
+	@"ActionTint",
+	@"ActionAnimate",
+	@"ActionSequence",
+	@"ActionSequence2",
+	@"ActionSpawn",
+	@"ActionReverse",
+	@"ActionDelayTime",
+	@"ActionRepeat",
+	@"ActionRepeatForever",
+	@"ActionRotateToRepeat",
+	@"ActionRotateJerk",
+	@"ActionCallFunc",
+	@"ActionCallFuncND",
+	@"ActionCallBlock",
+	@"ActionReverseSequence",
+	@"ActionReverseSequence2",
+	@"ActionOrbit",
+	@"ActionFollow",
+	@"ActionProperty",
 };
 
 Class nextAction()
@@ -448,7 +450,7 @@ Class restartAction()
 	
 	[self centerSprites:1];
 	
-	CCAnimation* animation = [CCAnimation animationWithName:@"dance"];
+	CCAnimation* animation = [CCAnimation animation];
 	for( int i=1;i<15;i++)
 		[animation addFrameWithFilename: [NSString stringWithFormat:@"grossini_dance_%02d.png", i]];
 	
@@ -860,6 +862,36 @@ Class restartAction()
 
 @end
 
+@implementation ActionCallBlock
+-(void) onEnter
+{
+	[super onEnter];
+	
+	[self centerSprites:1];
+	
+	id action = [CCSequence actions:
+				 [CCMoveBy actionWithDuration:2 position:ccp(200,0)],
+				 [CCCallBlockN actionWithBlock:
+				  ^(CCNode *node){
+					  CCLOG(@"block called");
+					  [node removeFromParentAndCleanup:YES];
+				  } ],
+				  nil ];
+	[grossini runAction:action];
+}
+
+-(NSString *) title
+{
+	return @"CallBlock";
+}
+
+-(NSString *) subtitle
+{
+	return @"CallBlockN test. Grossini should dissaper in 2 seconds";
+}
+
+@end
+
 
 @implementation ActionOrbit
 -(void) onEnter
@@ -1026,8 +1058,8 @@ Class restartAction()
 	[director setDisplayFPS:YES];
 	
 	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
-	if ([UIScreen instancesRespondToSelector:@selector(scale)])
-		[director setContentScaleFactor:[[UIScreen mainScreen] scale]];
+	if( ! [director enableRetinaDisplay:YES] )
+		CCLOG(@"Retina Display Not supported");
 	
 	// Default texture format for PNG/BMP/TIFF/JPEG/GIF images
 	// It can be RGBA8888, RGBA4444, RGB5_A1, RGB565

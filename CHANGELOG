@@ -1,3 +1,31 @@
+version 0.99.5-rc0 - 25-Oct-2010
+. [NEW] AnimationCache: New class. It deprecates the CCSprite#animation methods (issue #848)
+. [NEW] Animation: simplified API. Name is no longer needed. Deprecated API that uses name.
+. [NEW] Animation: Animation has its own file: CCAnimation.m
+. [NEW] CocosDenshion: Added duration, freq and size queries for buffers
+. [NEW] Director: Added "hook" for notifications or any other kind of object like CCNotifications
+. [NEW] Director: Added "enableRetinaDisplay:(BOOL)enabled"
+. [NEW] EAGLView: Added support for multisampling
+. [NEW] EAGLView: Added support sharegroup
+. [NEW] Templates: Install HD, iPad and spotlight icons
+. [FIX] Blocks: Actions and MenuItems copy the blocks instead of retaining it (issue #1007)
+. [FIX] config: FONT_LABEL is disabled by default since it performs really bad on iOS >= 4.0
+. [FIX] Layer: register accelerometer onEnterTransitionDidFinsih (issue #624)
+. [FIX] Node: converToNodeSpace works on RetinaDisplay (issue #1000)
+. [FIX] Node: all transform methods uses Points instead of Pixels (issue #999)
+. [FIX] Node: onEnterTransitionDidFinsih is also called when added a node to a running node (issue #1018)
+. [FIX] Node: addChild returns void, and not self in order to simplify the API
+. [FIX] Node: Initializes parent_ to nil at init time
+. [FIX] Node: Performance improvement in insertChild (issue #909)
+. [FIX] RenderTexture: improved performance, improved logic, no more glMaskColor() bugs (issue #1012)
+. [FIX] Sprite: setPositionInPixels set to dirty when called (issue #1001)
+. [FIX] Templates: Fixed startup flicker (issue #947)
+. [FIX] Templates: Installs @2x, iPad and spotlight icons
+. [FIX] Tests: Touch Tests works on RetinaDisplay (issue #1000)
+. [FIX] Tests: box2d tests work with RetinaDisplay
+. [FIX] Transitions: PageTurnTransition re-fixed. No more artifacts. This time is for real (issue #751)
+. [3RD] Chipmunk: Using version 5.3.2
+
 version 0.99.5-beta3 23-Sep-2010
  . [NEW] RetinaDisplay supported automatically:
 	Director: winSize returns size in Points. Use winSizeInPixels for pixels

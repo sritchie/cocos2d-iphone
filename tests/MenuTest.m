@@ -170,28 +170,35 @@ enum {
 {
 	if( (self=[super init]) ) {
 			
-		for( int i=0;i < 2;i++ ) {
-			CCMenuItemImage *item1 = [CCMenuItemImage itemFromNormalImage:@"btn-play-normal.png" selectedImage:@"btn-play-selected.png" target:self selector:@selector(menuCallbackBack:)];
-			CCMenuItemImage *item2 = [CCMenuItemImage itemFromNormalImage:@"btn-highscores-normal.png" selectedImage:@"btn-highscores-selected.png" target:self selector:@selector(menuCallbackOpacity:)];
-			CCMenuItemImage *item3 = [CCMenuItemImage itemFromNormalImage:@"btn-about-normal.png" selectedImage:@"btn-about-selected.png" target:self selector:@selector(menuCallbackAlign:)];
-			
-			item1.scaleX = 1.5f;
-			item2.scaleY = 0.5f;
-			item3.scaleX = 0.5f;
-			
-			CCMenu *menu = [CCMenu menuWithItems:item1, item2, item3, nil];
-			
-			menu.tag = kTagMenu;
-			
-			[self addChild:menu z:0 tag:100+i];
-			centeredMenu = menu.position;
-		}
-
-		alignedH = YES;
-		[self alignMenusH];
 	}
 
 	return self;
+}
+
+// Testing issue #1018 and #1021
+-(void) onEnter
+{	
+	[super onEnter];
+
+	for( int i=0;i < 2;i++ ) {
+		CCMenuItemImage *item1 = [CCMenuItemImage itemFromNormalImage:@"btn-play-normal.png" selectedImage:@"btn-play-selected.png" target:self selector:@selector(menuCallbackBack:)];
+		CCMenuItemImage *item2 = [CCMenuItemImage itemFromNormalImage:@"btn-highscores-normal.png" selectedImage:@"btn-highscores-selected.png" target:self selector:@selector(menuCallbackOpacity:)];
+		CCMenuItemImage *item3 = [CCMenuItemImage itemFromNormalImage:@"btn-about-normal.png" selectedImage:@"btn-about-selected.png" target:self selector:@selector(menuCallbackAlign:)];
+		
+		item1.scaleX = 1.5f;
+		item2.scaleY = 0.5f;
+		item3.scaleX = 0.5f;
+		
+		CCMenu *menu = [CCMenu menuWithItems:item1, item2, item3, nil];
+		
+		menu.tag = kTagMenu;
+		
+		[self addChild:menu z:0 tag:100+i];
+		centeredMenu = menu.position;
+	}
+	
+	alignedH = YES;
+	[self alignMenusH];
 }
 
 -(void) dealloc
@@ -434,8 +441,8 @@ enum {
 	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
 		
 	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
-	if ([UIScreen instancesRespondToSelector:@selector(scale)])
-		[director setContentScaleFactor:[[UIScreen mainScreen] scale]];
+	if( ! [director enableRetinaDisplay:YES] )
+		CCLOG(@"Retina Display Not supported");
 	
 	// display FPS (useful when debugging)
 	[director setDisplayFPS:YES];
