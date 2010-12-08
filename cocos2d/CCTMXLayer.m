@@ -594,16 +594,20 @@ int compareInts (const void * a, const void * b)
 
 -(CGPoint) positionForOrthoAt:(CGPoint)pos
 {
-	int x = pos.x * mapTileSize_.width + 0.49f;
-	int y = (layerSize_.height - pos.y - 1) * mapTileSize_.height + 0.49f;
-	return ccp(x,y);
+	CGPoint xy = {
+		pos.x * mapTileSize_.width,
+		(layerSize_.height - pos.y - 1) * mapTileSize_.height,
+	};
+	return xy;
 }
 
 -(CGPoint) positionForIsoAt:(CGPoint)pos
 {
-	int x = mapTileSize_.width /2 * ( layerSize_.width + pos.x - pos.y - 1) + 0.49f;
-	int y = mapTileSize_.height /2 * (( layerSize_.height * 2 - pos.x - pos.y) - 2) + 0.49f;	
-	return ccp(x, y);
+	CGPoint xy = {
+		mapTileSize_.width /2 * ( layerSize_.width + pos.x - pos.y - 1),
+		mapTileSize_.height /2 * (( layerSize_.height * 2 - pos.x - pos.y) - 2),
+	};
+	return xy;
 }
 
 -(CGPoint) positionForHexAt:(CGPoint)pos
@@ -612,9 +616,11 @@ int compareInts (const void * a, const void * b)
 	if( (int)pos.x % 2 == 1 )
 		diffY = -mapTileSize_.height/2 ;
 	
-	int x =  pos.x * mapTileSize_.width*3/4 + 0.49f;
-	int y =  (layerSize_.height - pos.y - 1) * mapTileSize_.height + diffY + 0.49f;
-	return ccp(x,y);
+	CGPoint xy = {
+		pos.x * mapTileSize_.width*3/4,
+		(layerSize_.height - pos.y - 1) * mapTileSize_.height + diffY
+	};
+	return xy;
 }
 
 -(int) vertexZForPos:(CGPoint)pos
