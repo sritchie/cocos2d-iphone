@@ -76,15 +76,15 @@ extern NSString * cocos2dVersion(void);
 
 @implementation CCDirector
 
-@synthesize animationInterval=animationInterval_;
+@synthesize animationInterval = animationInterval_;
 @synthesize runningScene = runningScene_;
 @synthesize displayFPS = displayFPS_;
-@synthesize nextDeltaTimeZero=nextDeltaTimeZero_;
-@synthesize isPaused=isPaused_;
-@synthesize sendCleanupToScene=sendCleanupToScene_;
-@synthesize runningThread=runningThread_;
-@synthesize notificationNode=notificationNode_;
-@synthesize projectionDelegate=projectionDelegate_;
+@synthesize nextDeltaTimeZero = nextDeltaTimeZero_;
+@synthesize isPaused = isPaused_;
+@synthesize sendCleanupToScene = sendCleanupToScene_;
+@synthesize runningThread = runningThread_;
+@synthesize notificationNode = notificationNode_;
+@synthesize projectionDelegate = projectionDelegate_;
 //
 // singleton stuff
 //
@@ -368,21 +368,6 @@ static CCDirector *_sharedDirector = nil;
 	else {
 		sendCleanupToScene_ = YES;
 		nextScene_ = [scenesStack_ objectAtIndex:c-1];
-	}
-}
-
--(void) popSceneWithTransition: (Class)transitionClass duration:(ccTime)t;
-{
-	NSAssert( runningScene_ != nil, @"A running Scene is needed");
-	
-	[scenesStack_ removeLastObject];
-	NSUInteger c = [scenesStack_ count];
-	if( c == 0 ) {
-		[self end];
-	} else {
-		CCScene* scene = [transitionClass transitionWithDuration:t scene:[scenesStack_ objectAtIndex:c-1]];
-		[scenesStack_ replaceObjectAtIndex:c-1 withObject:scene];
-		nextScene_ = scene;
 	}
 }
 
