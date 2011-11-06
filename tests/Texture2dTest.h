@@ -15,8 +15,8 @@
 	MacGLView	*glView_;
 }
 
-@property (assign) IBOutlet NSWindow	*window;
-@property (assign) IBOutlet MacGLView	*glView;
+@property (readwrite, retain)	NSWindow	*window;
+@property (readwrite, retain)	MacGLView	*glView;
 
 - (IBAction)toggleFullScreen:(id)sender;
 
@@ -98,6 +98,10 @@
 {}
 @end
 
+@interface TexturePVRRGB888 : TextureDemo
+{}
+@end
+
 @interface TexturePVRA8 : TextureDemo
 {}
 @end
@@ -107,6 +111,10 @@
 @end
 
 @interface TexturePVRAI88 : TextureDemo
+{}
+@end
+
+@interface TexturePVRBadEncoding : TextureDemo
 {}
 @end
 
@@ -122,7 +130,11 @@
 {}
 @end
 
-@interface TexturePVRNPOT : TextureDemo
+@interface TexturePVRNPOT4444 : TextureDemo
+{}
+@end
+
+@interface TexturePVRNPOT8888 : TextureDemo
 {}
 @end
 
@@ -183,6 +195,22 @@
 
 @interface TextureCache1 : TextureDemo
 {}
+@end
+
+@interface FileUtilsTest : TextureDemo
+{}
+@end
+
+@interface TextureDrawAtPoint : TextureDemo
+{
+	CCTexture2D *tex1_, *tex2_;
+}
+@end
+
+@interface TextureDrawInRect : TextureDemo
+{
+	CCTexture2D *tex1_, *tex2_;
+}
 @end
 
 

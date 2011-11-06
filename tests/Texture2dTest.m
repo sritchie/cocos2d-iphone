@@ -18,13 +18,17 @@ enum {
 
 static int sceneIdx=-1;
 static NSString *transitions[] = {
-	
+
+	@"TexturePVRRGB565",
+	@"TexturePVRRGB888",
+
 	@"TextureAlias",
 	@"TextureMipMap",
 	@"TexturePVRMipMap",
 	@"TexturePVRMipMap2",
 	@"TexturePVRNonSquare",
-	@"TexturePVRNPOT",
+	@"TexturePVRNPOT4444",
+	@"TexturePVRNPOT8888",
 	@"TexturePVR2BPP",
 	@"TexturePVRRaw",
 	@"TexturePVR",
@@ -36,9 +40,11 @@ static NSString *transitions[] = {
 	@"TexturePVRRGBA4444CCZ",
 	@"TexturePVRRGBA5551",
 	@"TexturePVRRGB565",
+	@"TexturePVRRGB888",
 	@"TexturePVRA8",
 	@"TexturePVRI8",
 	@"TexturePVRAI88",
+	@"TexturePVRBadEncoding",
 	@"TexturePNG",
 	@"TextureBMP",
 	@"TextureJPEG",
@@ -55,9 +61,17 @@ static NSString *transitions[] = {
 	@"TextureGlRepeat",
 	@"TextureSizeTest",
 	@"TextureCache1",
+	@"TextureDrawAtPoint",
+	@"TextureDrawInRect",
+
+	@"FileUtilsTest",
 };
 
 #pragma mark Callbacks
+
+Class nextAction(void);
+Class backAction(void);
+Class restartAction(void);
 
 Class nextAction()
 {
@@ -94,6 +108,7 @@ Class restartAction()
 {
 	if( (self = [super init]) ) {
 
+		[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 		CGSize s = [[CCDirector sharedDirector] winSize];	
 		CCLabelTTF *label = [CCLabelTTF labelWithString:[self title] fontName:@"Arial" fontSize:26];
 		[self addChild:label z:1 tag:kTagLabel];
@@ -116,7 +131,8 @@ Class restartAction()
 		item2.position = ccp( s.width/2, 30);
 		item3.position = ccp( s.width/2 + 100,30);
 		[self addChild: menu z:1];	
-		
+		[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+
 	}
 	return self;
 }
@@ -125,6 +141,7 @@ Class restartAction()
 {
 	[super dealloc];
 	[[CCTextureCache sharedTextureCache] removeUnusedTextures];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(void) restartCallback: (id) sender
@@ -172,6 +189,7 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image.png"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
@@ -193,6 +211,7 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image.jpeg"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
@@ -214,6 +233,7 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image.bmp"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
@@ -235,6 +255,7 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image.tiff"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
@@ -256,6 +277,7 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image.gif"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
@@ -298,6 +320,7 @@ Class restartAction()
 	NSAssert( img.texture.name == sprite.texture.name, @"Error: CCTextureCache is not reusing the texture");
 
 	[image release];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -341,6 +364,7 @@ Class restartAction()
 	
 	[img0 runAction: [CCRepeatForever actionWithAction: [CCSequence actions: scale1, sc_back, nil]]];
 	[img1 runAction: [CCRepeatForever actionWithAction: [CCSequence actions: scale2, sc_back2, nil]]];	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -389,6 +413,7 @@ Class restartAction()
 		[imgMipMap runAction: [CCRepeatForever actionWithAction: [CCSequence actions: scale1, sc_back, nil]]];
 		[img runAction: [CCRepeatForever actionWithAction: [CCSequence actions: scale2, sc_back2, nil]]];
 	}
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -430,6 +455,7 @@ Class restartAction()
 	
 	[imgMipMap runAction: [CCRepeatForever actionWithAction: [CCSequence actions: scale1, sc_back, nil]]];
 	[img runAction: [CCRepeatForever actionWithAction: [CCSequence actions: scale2, sc_back2, nil]]];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -460,6 +486,7 @@ Class restartAction()
 		img.position = ccp( s.width/2.0f, s.height/2.0f);
 		[self addChild:img];
 	}
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -490,6 +517,7 @@ Class restartAction()
 	
 	NSLog(@"This test is not supported by Mac");
 #endif
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
@@ -518,6 +546,7 @@ Class restartAction()
 	} else {
 		NSLog(@"This test is not supported in cocos2d-mac");
 	}
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
@@ -547,6 +576,7 @@ Class restartAction()
 	} else {
 		NSLog(@"This test is not supported in cocos2d-mac");
 	}
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 
 }
 
@@ -572,7 +602,8 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgba8888.pvr"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
-	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+
 }
 
 -(NSString *) title
@@ -600,6 +631,7 @@ Class restartAction()
 	} else {
 		NSLog(@"BGRA8888 images are not supported");
 	}
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -624,6 +656,7 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgba5551.pvr"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
@@ -648,7 +681,8 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgba4444.pvr"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
-	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+
 }
 
 -(NSString *) title
@@ -672,7 +706,8 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgba4444.pvr.gz"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
-	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+
 }
 
 -(NSString *) title
@@ -702,6 +737,7 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgba4444.pvr.ccz"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -732,12 +768,38 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgb565.pvr"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 	
 }
 
 -(NSString *) title
 {
 	return @"PVR + RGB 565 Test";
+}
+@end
+
+#pragma mark -
+#pragma mark TexturePVR RGB888
+
+// Image generated using PVRTexTool:
+// http://www.imgtec.com/powervr/insider/powervr-pvrtextool.asp
+
+@implementation TexturePVRRGB888
+-(void) onEnter
+{
+	[super onEnter];
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	
+	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgb888.pvr"];
+	img.position = ccp( s.width/2.0f, s.height/2.0f);
+	[self addChild:img];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+	
+}
+
+-(NSString *) title
+{
+	return @"PVR + RGB 888 Test";
 }
 @end
 
@@ -756,7 +818,8 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_a8.pvr"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
-	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+
 }
 
 -(NSString *) title
@@ -780,7 +843,8 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_i8.pvr"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
-	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+
 }
 
 -(NSString *) title
@@ -804,7 +868,8 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_ai88.pvr"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
-	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+
 }
 
 -(NSString *) title
@@ -812,6 +877,37 @@ Class restartAction()
 	return @"PVR + AI88 Test";
 }
 @end
+
+#pragma mark -
+#pragma mark TexturePVR Bad Encoding
+
+// Image generated using PVRTexTool:
+// http://www.imgtec.com/powervr/insider/powervr-pvrtextool.asp
+
+@implementation TexturePVRBadEncoding
+-(void) onEnter
+{
+	[super onEnter];
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	
+	CCSprite *img = [CCSprite spriteWithFile:@"test_image-bad_encoding.pvr"];
+	if( img ) {
+		img.position = ccp( s.width/2.0f, s.height/2.0f);
+		[self addChild:img];
+	}
+}
+
+-(NSString *) title
+{
+	return @"PVR Unsupported encoding";
+}
+-(NSString *) subtitle
+{
+	return @"You should not see any image";
+}
+
+@end
+
 
 #pragma mark -
 #pragma mark TexturePVR Non Square
@@ -825,7 +921,8 @@ Class restartAction()
 	CCSprite *img = [CCSprite spriteWithFile:@"grossini_128x256_mipmap.pvr"];
 	img.position = ccp( s.width/2.0f, s.height/2.0f);
 	[self addChild:img];
-	
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+
 }
 
 -(NSString *) title
@@ -841,9 +938,9 @@ Class restartAction()
 @end
 
 #pragma mark -
-#pragma mark TexturePVR NPOT
+#pragma mark TexturePVR NPOT4444
 
-@implementation TexturePVRNPOT
+@implementation TexturePVRNPOT4444
 -(void) onEnter
 {
 	[super onEnter];
@@ -854,16 +951,45 @@ Class restartAction()
 		img.position = ccp( s.width/2.0f, s.height/2.0f);
 		[self addChild:img];
 	}
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
 {
-	return @"PVR + NPOT texture";
+	return @"PVR RGBA4 + NPOT texture";
 }
 
 -(NSString*) subtitle
 {
-	return @"Loading a 81x121 texture. Not supported yet";
+	return @"Loading a 81x121 RGBA4444 texture.";
+}
+@end
+
+#pragma mark -
+#pragma mark TexturePVR NPOT8888
+
+@implementation TexturePVRNPOT8888
+-(void) onEnter
+{
+	[super onEnter];
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	
+	CCSprite *img = [CCSprite spriteWithFile:@"grossini_pvr_rgba8888.pvr"];
+	if( img ) {
+		img.position = ccp( s.width/2.0f, s.height/2.0f);
+		[self addChild:img];
+	}
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
+}
+
+-(NSString *) title
+{
+	return @"PVR RGBA8 + NPOT texture";
+}
+
+-(NSString*) subtitle
+{
+	return @"Loading a 81x121 RGBA8888 texture.";
 }
 @end
 
@@ -908,6 +1034,7 @@ Class restartAction()
 	
 	[sprite2 runAction:scaleforever];
 	[sprite runAction: [[scaleforever copy] autorelease]];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -1003,6 +1130,7 @@ Class restartAction()
 
 	// restore default
 	[CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_Default];
+	[[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
 }
 
 -(NSString *) title
@@ -1593,6 +1721,161 @@ Class restartAction()
 }
 @end
 
+#pragma mark -
+#pragma mark TextureDrawAtPoint
+
+@implementation TextureDrawAtPoint
+-(id) init
+{	
+	if ((self=[super init]) ) {
+		
+		tex1_ = [[CCTextureCache sharedTextureCache] addImage:@"grossinis_sister1.png"];
+		tex2_ = [[CCTextureCache sharedTextureCache] addImage:@"grossinis_sister2.png"];
+		
+		[tex1_ retain];
+		[tex2_ retain];
+		
+	}
+	return self;
+}
+-(void) dealloc
+{
+	[tex1_ release];
+	[tex2_ release];
+}
+-(void) draw
+{
+	[super draw];
+	
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	
+	[tex1_ drawAtPoint:ccp(s.width/2-50, s.height/2 - 50)];
+	[tex2_ drawAtPoint:ccp(s.width/2+50, s.height/2 - 50)];
+
+}
+
+-(NSString*) title
+{
+	return @"CCTexture2D: drawAtPoint";
+}
+-(NSString *) subtitle
+{
+	return @"draws 2 textures using drawAtPoint";
+}
+@end
+
+#pragma mark -
+#pragma mark TextureDrawInRect
+
+
+@implementation TextureDrawInRect
+-(id) init
+{	
+	if ((self=[super init]) ) {
+		
+		tex1_ = [[CCTextureCache sharedTextureCache] addImage:@"grossinis_sister1.png"];
+		tex2_ = [[CCTextureCache sharedTextureCache] addImage:@"grossinis_sister2.png"];
+		
+		[tex1_ retain];
+		[tex2_ retain];
+		
+	}
+	return self;
+}
+-(void) dealloc
+{
+	[tex1_ release];
+	[tex2_ release];
+}
+-(void) draw
+{
+	[super draw];
+	
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	
+	CGRect rect1 = CGRectMake( s.width/2 - 80, 20, tex1_.contentSize.width * 0.5f, tex1_.contentSize.height *2 );
+	CGRect rect2 = CGRectMake( s.width/2 + 80, s.height/2, tex1_.contentSize.width * 2, tex1_.contentSize.height * 0.5f );
+	
+	[tex1_ drawInRect:rect1];
+	[tex2_ drawInRect:rect2];
+	
+}
+
+-(NSString*) title
+{
+	return @"CCTexture2D: drawInRect";
+}
+-(NSString *) subtitle
+{
+	return @"draws 2 textures using drawInRect";
+}
+@end
+
+
+#pragma mark - FileUtilsTest
+
+@implementation FileUtilsTest
+-(id) init
+{	
+	if ((self=[super init]) ) {
+		
+		// This test is only valid in Retinadisplay
+		
+		if( CC_CONTENT_SCALE_FACTOR() == 2 ) {
+			
+			CCSprite *sprite = [[CCSprite alloc] initWithFile:@"bugs/test_issue_1179.png"];
+			if( sprite )
+				NSLog(@"Test #1 issue 1179: OK");
+			else
+				NSLog(@"Test #1 issue 1179: FAILED");
+				
+			[sprite release];
+
+			sprite = [[CCSprite alloc] initWithFile:@"only_in_hd.pvr.ccz"];
+			if( sprite )
+				NSLog(@"Test #2 issue 1179: OK");
+			else
+				NSLog(@"Test #2 issue 1179: FAILED");
+			
+			[sprite release];
+
+		} else {
+			NSLog(@"Test issue #1179 failed. Needs to be tested with RetinaDispaly");
+		}
+
+		
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+		// Testint CCFileUtils API
+		BOOL ret;
+		ret = [CCFileUtils retinaDisplayFileExistsAtPath:@"bugs/test_issue_1179.png"];
+		if( ret )
+			NSLog(@"Test #3: retinaDisplayFileExistsAtPath: OK");
+		else
+			NSLog(@"Test #3: retinaDisplayFileExistsAtPath: FAILED");
+
+
+		ret = [CCFileUtils retinaDisplayFileExistsAtPath:@"grossini-does_no_exist.png"];
+		if( !ret )
+			NSLog(@"Test #4: retinaDisplayFileExistsAtPath: OK");
+		else
+			NSLog(@"Test #4: retinaDisplayFileExistsAtPath: FAILED");
+#endif // __IPHONE_OS_VERSION_MAX_ALLOWED
+		
+	}
+	return self;
+}
+
+-(NSString*) title
+{
+	return @"CCFileUtils: See console";
+}
+-(NSString *) subtitle
+{
+	return @"See the console";
+}
+@end
+
+
 
 #pragma mark -
 #pragma mark AppController - Main
@@ -1641,6 +1924,11 @@ Class restartAction()
 	// It can be RGBA8888, RGBA4444, RGB5_A1, RGB565
 	// You can change it at anytime.
 	[CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];	
+	
+	// When in iPad / RetinaDisplay mode, CCFileUtils will append the "-ipad" / "-hd" to all loaded files
+	// If the -ipad  / -hdfile is not found, it will load the non-suffixed version
+	[CCFileUtils setiPadSuffix:@"-ipad"];	// Default on iPad is "" (empty string)
+	[CCFileUtils setRetinaDisplaySuffix:@"-hd"];	// Default on RetinaDisplay is "-hd"
 	
 	CCScene *scene = [CCScene node];
 	[scene addChild: [nextAction() node]];
@@ -1707,21 +1995,29 @@ Class restartAction()
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
+	CGSize winSize = CGSizeMake(640,480);
 	
-	[director setDisplayFPS:YES];
-	
-	[director setOpenGLView:glView_];
-	
-//	[director setProjection:kCCDirectorProjection2D];
+	//
+	// CC_DIRECTOR_INIT:
+	// 1. It will create an NSWindow with a given size
+	// 2. It will create a MacGLView and it will associate it with the NSWindow
+	// 3. It will register the MacGLView to the CCDirector
+	//
+	// If you want to create a fullscreen window, you should do it AFTER calling this macro
+	//	
+	CC_DIRECTOR_INIT(winSize);
 	
 	// Enable "moving" mouse event. Default no.
 	[window_ setAcceptsMouseMovedEvents:NO];
 	
 	// EXPERIMENTAL stuff.
 	// 'Effects' don't work correctly when autoscale is turned on.
+	CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
 	[director setResizeMode:kCCDirectorResize_AutoScale];	
 	
+	// Turn on display FPS
+	[director setDisplayFPS:YES];
+
 	CCScene *scene = [CCScene node];
 	[scene addChild: [nextAction() node]];
 	

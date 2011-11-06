@@ -16,7 +16,7 @@
 		
 		CCSprite *bg = [CCSprite spriteWithFile:@"bugs/RetinaDisplay.jpg"];
 		[self addChild:bg z:0];
-		bg.anchorPoint = CGPointZero;
+		bg.anchorPoint = CGPointZero;		
 	}
 	return self;
 }
@@ -66,7 +66,7 @@
 	// Default texture format for PNG/BMP/TIFF/JPEG/GIF images
 	// It can be RGBA8888, RGBA4444, RGB5_A1, RGB565
 	// You can change anytime.
-	[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA8888];
+	[CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
 	
 	// create scene
 	CCScene *scene = [CCScene node];
@@ -101,7 +101,7 @@
 
 - (void) dealloc
 {
-	[window dealloc];
+	[window release];
 	[super dealloc];
 }
 

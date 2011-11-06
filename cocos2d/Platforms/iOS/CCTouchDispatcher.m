@@ -32,7 +32,6 @@
 #import "CCTouchDispatcher.h"
 #import "CCTouchHandler.h"
 
-
 @implementation CCTouchDispatcher
 
 @synthesize dispatchEvents;
@@ -184,34 +183,65 @@ static CCTouchDispatcher *sharedDispatcher = nil;
 
 #pragma mark Changing priority of added handlers
 
--(void) setPriority:(int) priority forDelegate:(id) delegate
+-(CCTouchHandler*) findHandler:(id)delegate
 {
-	NSAssert(NO, @"Set priority no implemented yet. Don't forget to report this bug!");
-//	if( delegate == nil )
-//		[NSException raise:NSInvalidArgumentException format:@"Got nil touch delegate"];
-//	
-//	CCTouchHandler *handler = nil;
-//	for( handler in touchHandlers )
-//		if( handler.delegate == delegate ) break;
-//	
-//	if( handler == nil )
-//		[NSException raise:NSInvalidArgumentException format:@"Touch delegate not found"];
-//	
-//	if( handler.priority != priority ) {
-//		handler.priority = priority;
-//		
-//		[handler retain];
-//		[touchHandlers removeObject:handler];
-//		[self addHandler:handler];
-//		[handler release];
-//	}
+	for( CCTouchHandler *handler in targetedHandlers ) {
+		if( handler.delegate == delegate ) {
+            return handler;
+		}
+	}
+	
+	for( CCTouchHandler *handler in standardHandlers ) {
+		if( handler.delegate == delegate ) {
+            return handler;
+        }
+	}
+    
+    if (toAdd) {
+		for( CCTouchHandler *handler in handlersToAdd ) {
+            if (handler.delegate == delegate) {
+                return handler;
+            }
+        }        
+    }
+    
+    return nil;
 }
 
+NSComparisonResult sortByPriority(id first, id second, void *context)
+{
+    if (((CCTouchHandler*)first).priority < ((CCTouchHandler*)second).priority)
+        return NSOrderedAscending;
+    else if (((CCTouchHandler*)first).priority > ((CCTouchHandler*)second).priority)
+        return NSOrderedDescending;
+    else 
+        return NSOrderedSame;
+}
+
+-(void) rearrangeHandlers:(NSMutableArray*)array
+{
+    [array sortUsingFunction:sortByPriority context:nil];
+}
+
+-(void) setPriority:(int) priority forDelegate:(id) delegate
+{
+	NSAssert(delegate != nil, @"Got nil touch delegate!");
+	
+	CCTouchHandler *handler = nil;
+    handler = [self findHandler:delegate];
+    
+    NSAssert(handler != nil, @"Delegate not found!");    
+    
+    handler.priority = priority;
+    
+    [self rearrangeHandlers:targetedHandlers];
+    [self rearrangeHandlers:standardHandlers];
+}
 
 //
 // dispatch events
 //
--(void) touches:(NSSet*)touches withEvent:(UIEvent*)event withTouchType:(unsigned int)idx;
+-(void) touches:(NSSet*)touches withEvent:(UIEvent*)event withTouchType:(unsigned int)idx
 {
 	NSAssert(idx < 4, @"Invalid idx value");
 
@@ -276,16 +306,13 @@ static CCTouchDispatcher *sharedDispatcher = nil;
 	// the add/removes/quit is done after the iterations
 	//
 	locked = NO;
-	if( toRemove ) {
-		toRemove = NO;
-		for( id delegate in handlersToRemove )
-			[self forceRemoveDelegate:delegate];
-		[handlersToRemove removeAllObjects];
-	}
+	
+	//issue 1084, 1139 first add then remove
 	if( toAdd ) {
 		toAdd = NO;
+		Class targetedClass = [CCTargetedTouchHandler class];
+		
 		for( CCTouchHandler *handler in handlersToAdd ) {
-			Class targetedClass = [CCTargetedTouchHandler class];
 			if( [handler isKindOfClass:targetedClass] )
 				[self forceAddHandler:handler array:targetedHandlers];
 			else
@@ -293,7 +320,14 @@ static CCTouchDispatcher *sharedDispatcher = nil;
 		}
 		[handlersToAdd removeAllObjects];
 	}
-	if( toQuit ) {
+	
+	if( toRemove ) {
+		toRemove = NO;
+		for( id delegate in handlersToRemove )
+			[self forceRemoveDelegate:delegate];
+		[handlersToRemove removeAllObjects];
+	}
+		if( toQuit ) {
 		toQuit = NO;
 		[self forceRemoveAllDelegates];
 	}

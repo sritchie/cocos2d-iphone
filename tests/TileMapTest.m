@@ -13,6 +13,8 @@
 static int sceneIdx=-1;
 static NSString *transitions[] = {	
 
+    @"TMXGIDObjectsTest",
+    
 	@"TMXIsoZorder",
 	@"TMXOrthoZorder",
 	@"TMXIsoVertexZ",
@@ -30,10 +32,13 @@ static NSString *transitions[] = {
 	@"TMXTilesetTest",
 	@"TMXOrthoObjectsTest",
 	@"TMXIsoObjectsTest",
+    @"TMXGIDObjectsTest",
 	@"TMXTilePropertyTest",
 	@"TMXResizeTest",
 	@"TMXIsoMoveLayer",
 	@"TMXOrthoMoveLayer",
+	@"TMXOrthoFlipTest",
+	@"TMXOrthoFromXMLTest",
 	@"TMXBug987",
 	@"TMXBug787",
 
@@ -44,6 +49,11 @@ static NSString *transitions[] = {
 enum {
 	kTagTileMap = 1,
 };
+
+Class nextAction(void);
+Class backAction(void);
+Class restartAction(void);
+
 
 Class nextAction()
 {
@@ -679,8 +689,8 @@ Class restartAction()
 		[self schedule:@selector(removeTiles:) interval:1];
 		
 		
-		NSLog(@"++++atlas quantity: %lu", [[layer textureAtlas] totalQuads]);
-		NSLog(@"++++children: %lu", [[layer children] count]);
+		NSLog(@"++++atlas quantity: %u", (unsigned int) [[layer textureAtlas] totalQuads]);
+		NSLog(@"++++children: %u", (unsigned int) [[layer children] count]);
 		
 		gid2 = 0;
 		
@@ -693,7 +703,7 @@ Class restartAction()
 	NSLog(@"removing tile: %@", sender);
 	id p = [sender parent];
 	[p removeChild:sender cleanup:YES];
-	NSLog(@"atlas quantity: %lu", [[p textureAtlas] totalQuads]);
+	NSLog(@"atlas quantity: %u", (unsigned int) [[p textureAtlas] totalQuads]);
 }
 
 -(void) updateCol:(ccTime)dt
@@ -701,8 +711,8 @@ Class restartAction()
 	id map = [self getChildByTag:kTagTileMap];
 	CCTMXLayer *layer = (CCTMXLayer*) [map getChildByTag:0];
 		
-	NSLog(@"++++atlas quantity: %lu", [[layer textureAtlas] totalQuads]);
-	NSLog(@"++++children: %lu", [[layer children] count]);
+	NSLog(@"++++atlas quantity: %u", (unsigned int) [[layer textureAtlas] totalQuads]);
+	NSLog(@"++++children: %u", (unsigned int) [[layer children] count]);
 
 
 	CGSize s = [layer layerSize];
@@ -893,6 +903,64 @@ Class restartAction()
 	return @"You need to parse them manually. See bug #810";
 }
 @end
+
+#pragma mark -
+#pragma mark TMXGIDObjectsTest
+
+@implementation TMXGIDObjectsTest
+-(id) init
+{
+	if( (self=[super init]) ) {
+		
+		CCTMXTiledMap *map = [CCTMXTiledMap tiledMapWithTMXFile:@"TileMaps/test-object-layer.tmx"];
+		[self addChild:map z:-1 tag:kTagTileMap];
+		
+		CGSize s = map.contentSize;
+		NSLog(@"ContentSize: %f, %f", s.width,s.height);
+		
+		NSLog(@"----> Iterating over all the group objets");
+		CCTMXObjectGroup *group = [map objectGroupNamed:@"Object Group 1"];
+		for( NSDictionary *dict in group.objects) {
+			NSLog(@"object: %@", dict);
+		}
+	}	
+	return self;
+}
+
+-(void) draw
+{
+	CCTMXTiledMap *map = (CCTMXTiledMap*) [self getChildByTag:kTagTileMap];
+	CCTMXObjectGroup *group = [map objectGroupNamed:@"Object Group 1"];
+	for( NSDictionary *dict in group.objects) {
+		int x = [[dict objectForKey:@"x"] intValue];
+		int y = [[dict objectForKey:@"y"] intValue];
+		int width = [[dict objectForKey:@"width"] intValue];
+		int height = [[dict objectForKey:@"height"] intValue];
+		
+		glLineWidth(3);
+		
+		ccDrawLine( ccp(x,y), ccp(x+width,y) );
+		ccDrawLine( ccp(x+width,y), ccp(x+width,y+height) );
+		ccDrawLine( ccp(x+width,y+height), ccp(x,y+height) );
+		ccDrawLine( ccp(x,y+height), ccp(x,y) );
+        
+		
+		glLineWidth(1);
+	}
+}
+
+-(NSString *) title
+{
+	return @"TMX GID objects";
+}
+
+-(NSString*) subtitle
+{
+	return @"Tiles are created from an object group";
+}
+@end
+
+
 #pragma mark -
 #pragma mark TMXTilePropertyTest
 
@@ -1298,6 +1366,72 @@ Class restartAction()
 @end
 
 #pragma mark -
+#pragma mark TMXOrthoFlipTest
+
+@implementation TMXOrthoFlipTest
+-(id) init
+{
+	if( (self=[super init]) ) {		
+		CCTMXTiledMap *map = [CCTMXTiledMap tiledMapWithTMXFile:@"TileMaps/ortho-rotation-test.tmx"];
+		[self addChild:map z:0 tag:kTagTileMap];
+		
+		CGSize s = map.contentSize;
+		NSLog(@"ContentSize: %f, %f", s.width,s.height);
+		
+		for( CCSpriteBatchNode* child in [map children] ) {
+			[[child texture] setAntiAliasTexParameters];
+		}
+		
+		id action = [CCScaleBy actionWithDuration:2 scale:0.5f];
+		[map runAction:action];
+	}	
+	return self;
+}
+
+-(NSString *) title
+{
+	return @"TMX tile flip test";
+}
+@end
+
+
+#pragma mark -
+#pragma mark TMXOrthoFromXMLTest
+
+@implementation TMXOrthoFromXMLTest
+-(id) init
+{
+	if( (self=[super init]) ) {
+		NSString* resources = @"TileMaps";		// partial paths are OK as resource paths.
+		NSString* file = [resources stringByAppendingPathComponent:@"orthogonal-test1.tmx"];
+		NSError* error = nil;
+		NSString* str = [NSString stringWithContentsOfFile:[CCFileUtils fullPathFromRelativePath:file] encoding:NSUTF8StringEncoding error:&error];
+		NSAssert3(!error, @"Unable to open file %@, %@ (%d)", file, [error localizedDescription], [error code]);
+
+		CCTMXTiledMap *map = [CCTMXTiledMap tiledMapWithXML:str resourcePath:resources];
+		[self addChild:map z:0 tag:kTagTileMap];
+		
+		CGSize s = map.contentSize;
+		NSLog(@"ContentSize: %f, %f", s.width,s.height);
+		
+		for( CCSpriteBatchNode* child in [map children] ) {
+			[[child texture] setAntiAliasTexParameters];
+		}
+		
+		id action = [CCScaleBy actionWithDuration:2 scale:0.5f];
+		[map runAction:action];
+	}	
+	return self;
+}
+
+-(NSString *) title
+{
+	return @"TMX created from XML test";
+}
+@end
+
+
+#pragma mark -
 #pragma mark TMXBug987
 
 @implementation TMXBug987
@@ -1404,6 +1538,11 @@ Class restartAction()
 	if( ! [director enableRetinaDisplay:YES] )
 		CCLOG(@"Retina Display Not supported");
 	
+	// When in iPad / RetinaDisplay mode, CCFileUtils will append the "-ipad" / "-hd" to all loaded files
+	// If the -ipad  / -hdfile is not found, it will load the non-suffixed version
+	[CCFileUtils setiPadSuffix:@"-ipad"];			// Default on iPad is "" (empty string)
+	[CCFileUtils setRetinaDisplaySuffix:@"-hd"];	// Default on RetinaDisplay is "-hd"
+	
 	// glview is a child of the main window
 	[window addSubview:glView];
 	
@@ -1484,34 +1623,37 @@ Class restartAction()
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
+	CGSize winSize = CGSizeMake(640,480);
 	
-	[director setDisplayFPS:YES];
-	
-	[director setOpenGLView:glView_];
-	
-//	[director setProjection:kCCDirectorProjection2D];
+	//
+	// CC_DIRECTOR_INIT:
+	// 1. It will create an NSWindow with a given size
+	// 2. It will create a MacGLView and it will associate it with the NSWindow
+	// 3. It will register the MacGLView to the CCDirector
+	//
+	// If you want to create a fullscreen window, you should do it AFTER calling this macro
+	//	
+	CC_DIRECTOR_INIT(winSize);
 	
 	// Enable "moving" mouse event. Default no.
 	[window_ setAcceptsMouseMovedEvents:NO];
-		
+	
 	// EXPERIMENTAL stuff.
 	// 'Effects' don't work correctly when autoscale is turned on.
-	[director setResizeMode:kCCDirectorResize_AutoScale];
-	
-	CCScene *scene = [CCScene node];
-	[scene addChild: [nextAction() node]];
-	
+	CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
+	[director setResizeMode:kCCDirectorResize_AutoScale];	
+
 	//
 	// Run all the test with 2d projection
 	//
 	[director setProjection:kCCDirectorProjection2D];
+    
+    [director setDisplayFPS:YES];
 	
+	CCScene *scene = [CCScene node];
+	[scene addChild: [nextAction() node]];
 	
-	//
-	// Finally, run the scene
-	//
-	[director runWithScene: scene];
+	[director runWithScene:scene];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *) theApplication

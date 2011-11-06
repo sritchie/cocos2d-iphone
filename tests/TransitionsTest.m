@@ -180,6 +180,10 @@ static NSString *transitions[] = {
 	@"CCTransitionSlideInB",
 };
 
+Class nextTransition(void);
+Class backTransition(void);
+Class restartTransition(void);
+
 Class nextTransition()
 {	
 	// HACK: else NSClassFromString will fail
@@ -227,17 +231,7 @@ Class restartTransition()
 		x = size.width;
 		y = size.height;
 
-		CCSprite *bg1;
-		
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-			bg1 = [CCSprite spriteWithFile:@"background1-ipad.jpg"];
-		} else {
-			bg1 = [CCSprite spriteWithFile:@"background1.jpg"];
-		}
-#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
-		bg1 = [CCSprite spriteWithFile:@"background1.jpg"];
-#endif // Mac
+		CCSprite *bg1 = [CCSprite spriteWithFile:@"background1.jpg"];
 		
 		bg1.position = ccp(size.width/2, size.height/2);
 		[self addChild:bg1 z:-1];
@@ -336,16 +330,8 @@ Class restartTransition()
 		x = size.width;
 		y = size.height;
 		
-		CCSprite *bg2;
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-			bg2 = [CCSprite spriteWithFile:@"background2-ipad.jpg"];
-		} else {
-			bg2 = [CCSprite spriteWithFile:@"background2.jpg"];
-		}
-#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
-		bg2 = [CCSprite spriteWithFile:@"background2.jpg"];
-#endif // Mac
+		CCSprite *bg2 = [CCSprite spriteWithFile:@"background2.jpg"];
+
 		bg2.position = ccp(size.width/2, size.height/2);
 		[self addChild:bg2 z:-1];
 		
@@ -470,7 +456,7 @@ Class restartTransition()
 	// On the other hand "Flip" transitions doesn't work with DepthBuffer > 0
 	EAGLView *glView = [EAGLView viewWithFrame:[window bounds]
 								   pixelFormat:kEAGLColorFormatRGBA8
-								   depthFormat:0 // GL_DEPTH_COMPONENT24_OES
+								   depthFormat:0 //GL_DEPTH_COMPONENT24_OES
 						];
 	[glView setMultipleTouchEnabled:YES];
 	
@@ -481,6 +467,11 @@ Class restartTransition()
 	if( ! [director enableRetinaDisplay:YES] )
 		CCLOG(@"Retina Display Not supported");
 	
+	// When in iPad / RetinaDisplay mode, CCFileUtils will append the "-ipad" / "-hd" to all loaded files
+	// If the -ipad  / -hdfile is not found, it will load the non-suffixed version
+	[CCFileUtils setiPadSuffix:@"-ipad"];			// Default on iPad is "" (empty string)
+	[CCFileUtils setRetinaDisplaySuffix:@"-hd"];	// Default on RetinaDisplay is "-hd"
+
 	// glview is a child of the main window
 	[window addSubview:glView];
 	
@@ -542,7 +533,7 @@ Class restartTransition()
 
 - (void) dealloc
 {
-	[window dealloc];
+	[window release];
 	[super dealloc];
 }
 
@@ -559,19 +550,25 @@ Class restartTransition()
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
+	CGSize winSize = CGSizeMake(480,320);
 	
-	[director setDisplayFPS:YES];
+	//
+	// CC_DIRECTOR_INIT:
+	// 1. It will create an NSWindow with a given size
+	// 2. It will create a MacGLView and it will associate it with the NSWindow
+	// 3. It will register the MacGLView to the CCDirector
+	//
+	// If you want to create a fullscreen window, you should do it AFTER calling this macro
+	//
 	
-	[director setOpenGLView:glView_];
-	
-//	[director setProjection:kCCDirectorProjection2D];
+	CC_DIRECTOR_INIT(winSize);
 	
 	// Enable "moving" mouse event. Default no.
 	[window_ setAcceptsMouseMovedEvents:NO];
 	
 	// EXPERIMENTAL stuff.
 	// 'Effects' don't work correctly when autoscale is turned on.
+	CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
 	[director setResizeMode:kCCDirectorResize_AutoScale];	
 	
 	CCScene *scene = [CCScene node];

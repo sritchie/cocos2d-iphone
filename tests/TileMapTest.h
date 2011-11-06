@@ -15,8 +15,8 @@
 	MacGLView	*glView_;
 }
 
-@property (assign) IBOutlet NSWindow	*window;
-@property (assign) IBOutlet MacGLView	*glView;
+@property (readwrite, retain)	NSWindow	*window;
+@property (readwrite, retain)	MacGLView	*glView;
 
 - (IBAction)toggleFullScreen:(id)sender;
 
@@ -95,6 +95,10 @@
 {}
 @end
 
+@interface TMXGIDObjectsTest : TileDemo
+{}
+@end
+
 @interface TMXResizeTest : TileDemo
 {}
 @end
@@ -132,6 +136,14 @@
 @end
 
 @interface TMXTilePropertyTest : TileDemo
+{}
+@end
+
+@interface TMXOrthoFlipTest : TileDemo
+{}
+@end
+
+@interface TMXOrthoFromXMLTest : TileDemo 
 {}
 @end
 

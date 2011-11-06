@@ -33,6 +33,12 @@ static NSString *fontList[] =
 	@"Scissor Cuts",
 };
 
+
+NSString* nextAction(void);
+NSString* backAction(void);
+NSString* restartAction(void);
+
+
 NSString* nextAction()
 {	
 	fontIdx++;
@@ -86,9 +92,9 @@ NSString* restartAction()
     
 	
 	CCLabelTTF *top = [CCLabelTTF labelWithString:aFont fontName:aFont fontSize:24];
-	CCLabelTTF *left = [CCLabelTTF labelWithString:@"alignment left" dimensions:CGSizeMake(480,50) alignment:UITextAlignmentLeft fontName:aFont fontSize:32];
-	CCLabelTTF *center = [CCLabelTTF labelWithString:@"alignment center" dimensions:CGSizeMake(480,50) alignment:UITextAlignmentCenter fontName:aFont fontSize:32];
-	CCLabelTTF *right = [CCLabelTTF labelWithString:@"alignment right" dimensions:CGSizeMake(480,50) alignment:UITextAlignmentRight fontName:aFont fontSize:32];
+	CCLabelTTF *left = [CCLabelTTF labelWithString:@"alignment left" dimensions:CGSizeMake(480,50) alignment:CCTextAlignmentLeft fontName:aFont fontSize:32];
+	CCLabelTTF *center = [CCLabelTTF labelWithString:@"alignment center" dimensions:CGSizeMake(480,50) alignment:CCTextAlignmentCenter fontName:aFont fontSize:32];
+	CCLabelTTF *right = [CCLabelTTF labelWithString:@"alignment right" dimensions:CGSizeMake(480,50) alignment:CCTextAlignmentRight fontName:aFont fontSize:32];
 
 	CGSize s = [[CCDirector sharedDirector] winSize];
 	
@@ -165,6 +171,11 @@ NSString* restartAction()
 	// You can change anytime.
 	[CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
 	
+	// When in iPad / RetinaDisplay mode, CCFileUtils will append the "-ipad" / "-hd" to all loaded files
+	// If the -ipad  / -hdfile is not found, it will load the non-suffixed version
+	[CCFileUtils setiPadSuffix:@"-ipad"];			// Default on iPad is "" (empty string)
+	[CCFileUtils setRetinaDisplaySuffix:@"-hd"];	// Default on RetinaDisplay is "-hd"
+	
 	CCScene *scene = [CCScene node];
 	[scene addChild: [FontTest node]];
 	
@@ -173,7 +184,7 @@ NSString* restartAction()
 
 - (void) dealloc
 {
-	[window dealloc];
+	[window release];
 	[super dealloc];
 }
 
